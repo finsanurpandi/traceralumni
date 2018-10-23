@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class FeedbackAjax extends CI_Controller {
+class Ajax extends CI_Controller {
 
     public function __construct()
     {
@@ -33,6 +33,13 @@ class FeedbackAjax extends CI_Controller {
     {
         $npm = $this->input->post('npm');
         $data = $this->m_feedback->getAllData('ace_alumni', array('npm' => $npm))->result_array();
+        echo json_encode($data);
+    }
+
+    function getKarir()
+    {
+        $id = $this->input->post('id');
+        $data = $this->m_feedback->getAllData('ace_detail_alumni', array('id_karir' => $id))->result_array();
         echo json_encode($data);
     }
 

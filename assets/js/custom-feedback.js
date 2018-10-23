@@ -73,6 +73,24 @@ $('.btn-perusahaan').click(function(){
              .end();
 });
 
+// CHECKBOX CURRENTLY WORK
+$('#still_works').click(function(e){
+
+    if ($('#still_works').is(':checked')) {
+        $('#bln_selesai').prop('disabled', true);
+        $('#thn_selesai').prop('disabled', true);
+    } else {
+        $('#bln_selesai').prop('disabled', false);
+        $('#thn_selesai').prop('disabled', false);
+    }
+});
+
+// if ($('#still_works').is(':checked')) {
+//     console.log('Yes');
+// } else {
+//     console.log('No');
+// }
+
 // ALERT AUTOCLOSED
 window.setTimeout(function() {
     $(".alert.alert-success").fadeTo(500, 0).slideUp(500, function(){

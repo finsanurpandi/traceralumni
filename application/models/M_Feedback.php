@@ -141,6 +141,15 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
+	function getDetailKarir($npm)
+	{
+		$sql = "SELECT ace_detail_alumni.*, ace_perusahaan.nama_perusahaan, ace_perusahaan.bidang_usaha AS pt_bidang_usaha FROM `ace_detail_alumni` LEFT JOIN ace_perusahaan ON ace_detail_alumni.kd_perusahaan = ace_perusahaan.kd_perusahaan WHERE ace_detail_alumni.npm = '".$npm."' ORDER BY ace_detail_alumni.log DESC";
+
+		$query = $this->db->query($sql);
+
+		return $query->result_array();
+	}
+
 
 // INSERT DATA
 
