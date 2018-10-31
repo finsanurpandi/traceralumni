@@ -171,7 +171,6 @@ $(document).on('click', '#btnEditAlumni', function(e){
       dataType: 'json',
       data: {npm:data['npm']},
       success: function(res){
-          console.log(res[0]['tahun_bekerja']);
         $('#alumniEditNpm').val(res[0]['npm']);
         $('#alumniEditNama').val(res[0]['nama']);
         $('#alumniEditAlamat').val(res[0]['alamat']);
@@ -192,6 +191,69 @@ $(document).on('click', '#btnEditAlumni', function(e){
       }
     });
 });
+
+$(document).on('keyup', '#nikPenilai', function(e){
+    var nik = $('#nikPenilai').val();
+
+    $.ajax({
+        method: "post",
+        url: baseurl+"ajax/checkNik",
+        data: {nik: nik},
+        success: function(res){
+            if (res == 1) {
+                $('#status-nik').html("<p class='text-success'><small><i class='fa fa-check'></i> NIK terdaftar!!!</small></p>");
+                $('#submit-nik').prop('disabled', false);
+            } else {
+                $('#status-nik').html("<p class='text-danger'><small><i class='fa fa-remove'></i> NIK belum terdaftar!!!</small></p>");
+                $('#submit-nik').prop('disabled', true);
+            }
+        }
+    });
+});
+
+$(document).on('click', '#btn-detail-penilaian', function(e){
+    e.preventDefault();
+
+    let data = $(this).data();
+
+    $.ajax({
+      method: 'post',
+      url: baseurl+'ajax/getHasilPenilaian',
+      async: true,
+      dataType: 'json',
+      data: {kd_alumni:data['alumni']},
+      success: function(res){
+            //console.log(res);
+            var no = 1;
+            text = '';
+            for (let i = 0; i < res.length; i++) {
+                text +=
+                    "<tr>"+
+                    "<td>"+ no++ +"</td>"+
+                    "<td>"+ res[i]['uraian'] +"</td>"+
+                    "<td class='tengah'>"+ aspek(res[i]['nilai']) +"</td>"+
+                    "</tr>";
+            };
+
+            $('.isi-modal').html(text);
+            $('.text-title').text(data['nama']);
+        
+      }
+    });
+});
+
+function aspek(data)
+{
+    if (data == '1') {
+        return "<span class='label label-danger'>Kurang</span>";
+    } else if (data == '2') {
+        return "<span class='label label-warning'>Cukup</span>";
+    } else if (data == '3') {
+        return "<span class='label label-success'>Baik</span>";
+    } else if (data == '4') {
+        return "<span class='label label-primary'>Sangat Baik</span>";
+    }
+}
 
 
 

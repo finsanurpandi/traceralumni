@@ -30,19 +30,19 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Tracer</b>Alumni</a>
+    <a href="../../index2.html"><b>Feedback</b> Pengguna Alumni</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Silahkan login...</p>
+    <p class="login-box-msg">Silahkan login untuk mulai mengisi penilaian</p>
 
     <form method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="NPM" name="npm" required>
+        <input type="text" class="form-control" placeholder="Username" name="username" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="pass" class="form-control" placeholder="Password">
+        <input type="password" class="form-control" placeholder="Password" name="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <?php
@@ -55,14 +55,13 @@
       <?php
         }
       ?>
-<br/>
       <div class="row">
         <div class="col-xs-8">
-          <a href="<?=base_url()?>alumni/register">Registrasi</a>
+          
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <input type="submit" class="btn btn-primary btn-block btn-flat" name="login" value="Login">
+            <input type="submit" class="btn btn-primary btn-block btn-flat" value="Login" name="submit"/>
         </div>
         <!-- /.col -->
       </div>

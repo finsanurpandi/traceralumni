@@ -27,7 +27,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
       <li id="prodiKinerja">
-        <a href="<?=base_url()?>feedbackadmin">
+        <a href="<?=base_url()?>admin">
           <i class="fa fa-th"></i> <span>Dashboard</span>
         </a>
       </li>
@@ -39,10 +39,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="prodiDataJadwal"><a href="<?=base_url()?>feedbackadmin/alumni"><i class="fa fa-circle-o"></i> Data Alumni</a></li>
-            <li id="prodiDataJadwal"><a href="<?=base_url()?>feedbackadmin/jmlalumni"><i class="fa fa-circle-o"></i> Jumlah Alumni</a></li>
-            <li id="prodiKelas"><a href="<?=base_url()?>feedbackadmin/perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
-            <li id="prodiKelas"><a href="<?=base_url()?>feedbackadmin/uraian"><i class="fa fa-circle-o"></i> Uraian Penilaian</a></li>
+            <li id="prodiDataJadwal"><a href="<?=base_url()?>admin/alumni"><i class="fa fa-circle-o"></i> Data Alumni</a></li>
+            <li id="prodiDataJadwal"><a href="<?=base_url()?>admin/jmlalumni"><i class="fa fa-circle-o"></i> Jumlah Alumni</a></li>
+            <li id="prodiKelas"><a href="<?=base_url()?>admin/perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
+            <li id="prodiKelas"><a href="<?=base_url()?>admin/uraian"><i class="fa fa-circle-o"></i> Uraian Penilaian</a></li>
           </ul>
         </li>
         <li id="prodiUraian" class="treeview">
@@ -53,8 +53,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="prodiKategori"><a href="<?=base_url()?>feedbackadmin/penilaian_alumni"><i class="fa fa-circle-o"></i> Alumni</a></li>
-            <li id="prodiUraianKinerja"><a href="<?=base_url()?>feedbackadmin/penilaian_perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
+            <li id="prodiKategori"><a href="<?=base_url()?>admin/penilaian_alumni"><i class="fa fa-circle-o"></i> Alumni</a></li>
+            <li id="prodiUraianKinerja"><a href="<?=base_url()?>admin/penilaian_perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
           </ul>
         </li>
         <li id="prodiKinerja">

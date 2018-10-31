@@ -150,6 +150,15 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
+	function getPenilaianPerson($kd_alumni)
+	{
+		$sql = "SELECT ace_penilaian.*, ace_aspek_penilaian.uraian FROM `ace_penilaian` LEFT JOIN ace_aspek_penilaian ON ace_aspek_penilaian.kd_aspek = ace_penilaian.kd_aspek WHERE ace_penilaian.kd_alumni = '".$kd_alumni."'";
+
+		$query = $this->db->query($sql);
+
+		return $query->result_array();
+	}
+
 
 // INSERT DATA
 

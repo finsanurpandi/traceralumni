@@ -22,6 +22,15 @@ class Ajax extends CI_Controller {
         echo $row;
     }
 
+    function checkNik()
+    {
+        $nik = $this->input->post('nik');
+
+        $row = $this->m_feedback->getAllData('ace_pegawai', array('nik' => $nik))->num_rows();
+
+        echo $row;
+    }
+
     function getPerusahaan()
     {
         $kd_perusahaan = $this->input->post('kd_perusahaan');
@@ -40,6 +49,13 @@ class Ajax extends CI_Controller {
     {
         $id = $this->input->post('id');
         $data = $this->m_feedback->getAllData('ace_detail_alumni', array('id_karir' => $id))->result_array();
+        echo json_encode($data);
+    }
+
+    function getHasilPenilaian()
+    {
+        $kd_alumni = $this->input->post('kd_alumni');
+        $data = $this->m_feedback->getPenilaianPerson($kd_alumni);
         echo json_encode($data);
     }
 

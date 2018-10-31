@@ -9,7 +9,7 @@ class Alumni extends CI_Controller {
 
         date_default_timezone_set("Asia/Bangkok");
 
-        $this->check_login();
+        //$this->check_login();
     }
 
     function load_view($url, $data = null)
@@ -38,6 +38,8 @@ class Alumni extends CI_Controller {
 
     public function index()
     {
+        $this->check_login();
+
         $user = $this->m_feedback->getAllData('ace_alumni', array('npm' => $this->session->npm))->result_array();
         $data['user'] = $user[0];
 
@@ -118,6 +120,8 @@ class Alumni extends CI_Controller {
 
     function profil()
     {
+        $this->check_login();
+        
         $user = $this->m_feedback->getAllData('ace_alumni', array('npm' => $this->session->npm))->result_array();
         $data['user'] = $user[0];
 

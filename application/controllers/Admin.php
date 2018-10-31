@@ -368,7 +368,48 @@ class Admin extends CI_Controller {
 
     function penilaian_perusahaan()
     {
+        $company = $this->m_feedback->getAllData('ace_perusahaan', array('kd_perusahaan' => $this->session->user))->result_array();
+        $hasil = $this->m_feedback->getAllData('ace_penilaian', array('kd_prodi' => '55201'))->result_array();
+        $aspek = $this->m_feedback->getAllData('ace_aspek_penilaian')->result_array();
+        $datahasil = array();
 
+        for ($i=0; $i < count($aspek); $i++) { 
+            foreach ($hasil as $key => $value) {
+                if ($value['kd_aspek'] == $aspek[$i]['kd_aspek']) {
+                    @$datahasil[$i]['kd_aspek'] = $aspek[$i]['kd_aspek'];
+                    @$datahasil[$i]['uraian'] = $aspek[$i]['uraian'];
+                    if ($value['nilai'] == '1') {
+                        @$datahasil[$i]['kurang'] += 1;
+                        @$datahasil[$i]['cukup'] += 0;
+                        @$datahasil[$i]['baik'] += 0;
+                        @$datahasil[$i]['sangat_baik'] += 0;
+                    } elseif ($value['nilai'] == '2') {
+                        @$datahasil[$i]['kurang'] += 0;
+                        @$datahasil[$i]['cukup'] += 1;
+                        @$datahasil[$i]['baik'] += 0;
+                        @$datahasil[$i]['sangat_baik'] += 0;
+                    } elseif ($value['nilai'] == '3') {
+                        @$datahasil[$i]['kurang'] += 0;
+                        @$datahasil[$i]['cukup'] += 0;
+                        @$datahasil[$i]['baik'] += 1;
+                        @$datahasil[$i]['sangat_baik'] += 0;
+                    } elseif ($value['nilai'] == '4') {
+                        @$datahasil[$i]['kurang'] += 0;
+                        @$datahasil[$i]['cukup'] += 0;
+                        @$datahasil[$i]['baik'] += 0;
+                        @$datahasil[$i]['sangat_baik'] += 1;
+                    }
+                }
+            }    
+        }
+
+        $responden = count($hasil)/count($aspek);
+
+        $data['data'] = $datahasil;
+        // $data['company'] = $company[0];
+        $data['responden'] = $responden;
+        $data['aspek'] = $aspek;
+        $this->load_view('fadmin/penilaian_perusahaan', $data);
     }
 
     function cetak()
