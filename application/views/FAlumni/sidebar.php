@@ -38,7 +38,7 @@
           </a>
         </li>
         <li id="survey">
-        <a href="http://www.alumni.unsur.ac.id" target="_blank">
+        <a href="http://alumni.unsur.ac.id" target="_blank">
             <i class="fa fa-th"></i> <span>Kuesioner</span>
           </a>
         </li>
