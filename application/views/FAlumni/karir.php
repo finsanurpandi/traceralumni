@@ -51,7 +51,7 @@
         Histori Karir
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=base_url()?>alumni"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?=base_url()?>tracerstudy"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li>Informasi</li>
         <li class="active">Karir</li>
       </ol>

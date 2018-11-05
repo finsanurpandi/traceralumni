@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         if ($this->session->login_in == FALSE) {
             $this->load->view('login_alumni');
         } else {
-            redirect('alumni', 'refresh');
+            redirect('tracerstudy', 'refresh');
         }
 
         $rand = rand(1,5);
@@ -101,7 +101,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata($user_account);
             $this->m_basic->updateData('ace_alumni', $data, array('npm' => $user));
 
-            redirect('alumni', 'refresh');
+            redirect('tracerstudy', 'refresh');
 				
 			} else {
 
@@ -150,11 +150,10 @@ class Login extends CI_Controller {
 			$pass = $this->input->post('pass');
 
 			// check user
-            $count = $this->m_basic->getNumRows('fn_login', array('user' => $user, 'pass' => sha1($pass)));
-            $userlogin = $this->m_basic->getAllData('fn_login', array('user' => $user))->result_array();
+            $count = $this->m_basic->getNumRows('ace_login', array('username' => $user, 'password' => sha1($pass)));
+            $userlogin = $this->m_basic->getAllData('ace_login', array('username' => $user))->result_array();
 
 			//set date
-			date_default_timezone_set("Asia/Bangkok");
 			$date = new DateTime();
 			$lastlogin = $date->format('Y-m-d H:i:s');
 
@@ -182,7 +181,7 @@ class Login extends CI_Controller {
               'login_in' => TRUE,
               'user' => $user,
               'pic' => $pic,
-              'kdprodi' => $userlogin[0]['prodi'],
+              'kdprodi' => $userlogin[0]['kd_prodi'],
               'role' => '0'
             );
 
@@ -192,9 +191,10 @@ class Login extends CI_Controller {
             );
 
             $this->session->set_userdata($user_account);
-            $this->m_basic->updateData('fn_login', $data, array('user' => $user));
+            $this->m_basic->updateData('ace_login', $data, array('username' => $user));
 
-            redirect('prodi', 'refresh');
+            redirect('admin', 'refresh');
+            //print_r($this->session->userdata());
 				
 			} else {
 
@@ -211,7 +211,7 @@ class Login extends CI_Controller {
 
         if ($user == 'alumni') {
             redirect('login/alumni', 'refresh');
-        } else {
+        } elseif ($user == 'prodi') {
             redirect('login/prodi', 'refresh');
         }
 		

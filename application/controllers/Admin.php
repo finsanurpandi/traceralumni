@@ -2,54 +2,64 @@
 
 class Admin extends CI_Controller {
 
+    public $user;
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('m_feedback');
 
-        // $login = $this->session->userdata("login_in");
-		// if(!isset($login))
-        // {
-        // 	redirect('feedbacklogin','refresh');
-		// }
-		
+		$this->check_login();
         date_default_timezone_set("Asia/Bangkok");
-        $this->session->set_userdata('kd_prodi', '55201');
+        $this->user = $this->m_feedback->getAllData('ace_login', array('username' => $this->session->user))->result_array();
+        
     }
 
     function load_view($url, $data = null)
     {
         $this->load->view('fadmin/head');
         $this->load->view('fadmin/header');
-        $this->load->view('fadmin/sidebar');
+        
 
         if ($data !== null) {
+            $this->load->view('fadmin/sidebar', $data);
             $this->load->view($url, $data);
         } else {
+            $this->load->view('fadmin/sidebar');
             $this->load->view($url);
         }
         
         $this->load->view('fadmin/footer');
     }
 
+    function check_login()
+    {
+        if (($this->session->login_in !== TRUE) && ($this->session->role !== '0')) {
+            redirect('feedback', 'refresh');
+        }
+    }
+
     public function index()
     {
-        $this->load_view('default');
+        $data['user'] = $this->user[0];
+        $this->load_view('default', $data);
     }
 
     function alumni()
     {
-        $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kd_prodi))->result_array();
+        $data['user'] = $this->user[0];
+
+        $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
 
         
-        $bekerja = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $kesesuaian = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kd_prodi, 'kesesuaian' => '1'))->result_array();
-        $wirausaha = $this->m_feedback->getAllData('v_alumni_wirausaha', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $belumbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kd_prodi, 'kd_status' => '3'))->result_array();
-        $tidakbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kd_prodi, 'kd_status' => '4'))->result_array();
+        $bekerja = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $kesesuaian = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kdprodi, 'kesesuaian' => '1'))->result_array();
+        $wirausaha = $this->m_feedback->getAllData('v_alumni_wirausaha', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $belumbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kdprodi, 'kd_status' => '3'))->result_array();
+        $tidakbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kdprodi, 'kd_status' => '4'))->result_array();
 
         // RATA-RATA WAKTU TUNGGU BEKERJA
         $waktutunggu = 0;
@@ -129,7 +139,7 @@ class Admin extends CI_Controller {
                     'alamat' => $this->input->post('alamat_pt'),
                     'bidang_usaha' => $this->input->post('bidang_usaha_pt'),
                     'email' => $this->input->post('email_pt'),
-                    'kd_prodi' => $this->session->kd_prodi
+                    'kd_prodi' => $this->session->kdprodi
                 );
 
                 $dataDetail['kd_perusahaan'] = $lastrecord[0]['kd_perusahaan']+1;
@@ -195,6 +205,8 @@ class Admin extends CI_Controller {
     {
         $npm = $this->encrypt->decode($npm);
 
+        $data['user'] = $this->user[0];
+
         $alumni = $this->m_feedback->getAllData('ace_alumni', array('npm' => $npm))->result_array();
         
         if ($alumni[0]['kd_status'] == '1') { // bekerja
@@ -220,9 +232,9 @@ class Admin extends CI_Controller {
 
     function jmlalumni()
     {
-        $jmlalumni = $this->m_feedback->getAllData('ace_jumlah_alumni', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        
+        $data['user'] = $this->user[0];
 
+        $jmlalumni = $this->m_feedback->getAllData('ace_jumlah_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $data['jmlalumni'] = $jmlalumni;
         $this->load_view('fadmin/jmlalumni', $data);
 
@@ -234,7 +246,7 @@ class Admin extends CI_Controller {
                 'bulan' => $this->input->post('bulan'),
                 'periode' => $this->input->post('periode'),
                 'jumlah' => $this->input->post('jumlah'),
-                'kd_prodi' => $this->session->kd_prodi
+                'kd_prodi' => $this->session->kdprodi
             );
 
             $this->m_feedback->insertData('ace_jumlah_alumni', $data);
@@ -242,13 +254,14 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('success', true);
 
             redirect($this->uri->uri_string());
-
         }
     }
 
     function perusahaan()
     {
-        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('status' => '1', 'kd_prodi' => $this->session->kd_prodi))->result_array();
+        $data['user'] = $this->user[0];
+
+        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('status' => '1', 'kd_prodi' => $this->session->kdprodi))->result_array();
         $data['perusahaan'] = $perusahaan;
         $this->load_view('fadmin/perusahaan', $data);
 
@@ -263,7 +276,7 @@ class Admin extends CI_Controller {
                 'alamat' => $this->input->post('alamat'),
                 'bidang_usaha' => $this->input->post('bidang_usaha'),
                 'email' => $this->input->post('email'),
-                'kd_prodi' => $this->session->kd_prodi
+                'kd_prodi' => $this->session->kdprodi
             );
 
             $this->m_feedback->insertData('ace_perusahaan', $data);
@@ -307,6 +320,8 @@ class Admin extends CI_Controller {
     {
         $kd_perusahaan = $this->encrypt->decode($kd_perusahaan);
 
+        $data['user'] = $this->user[0];
+
         $perusahaan = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_perusahaan' => $kd_perusahaan))->result_array();
         // $alumni = $this->m_feedback->getAlumniOnDetailPerusahaan($kd_perusahaan);
         // $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_perusahaan' => $kd_perusahaan))->result_array();
@@ -319,23 +334,26 @@ class Admin extends CI_Controller {
     {
         $uraian = $this->m_feedback->getAllData('ace_kategori')->result_array();
         $data['uraian'] = $uraian;
+        $data['user'] = $this->user[0];
         $this->load_view('fadmin/uraian', $data);
     }
 
     function penilaian_alumni()
     {
-        $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $jmlalumni = $this->m_feedback->getAllJumlahAlumni($this->session->kd_prodi);
-        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kd_prodi))->result_array();
+        $data['user'] = $this->user[0];
+
+        $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $jmlalumni = $this->m_feedback->getAllJumlahAlumni($this->session->kdprodi);
+        $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
 
         
-        $bekerja = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $kesesuaian = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kd_prodi, 'kesesuaian' => '1'))->result_array();
-        $wirausaha = $this->m_feedback->getAllData('v_alumni_wirausaha', array('kd_prodi' => $this->session->kd_prodi))->result_array();
-        $belumbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kd_prodi, 'kd_status' => '3'))->result_array();
-        $tidakbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kd_prodi, 'kd_status' => '4'))->result_array();
+        $bekerja = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $kesesuaian = $this->m_feedback->getAllData('v_alumni_bekerja', array('kd_prodi' => $this->session->kdprodi, 'kesesuaian' => '1'))->result_array();
+        $wirausaha = $this->m_feedback->getAllData('v_alumni_wirausaha', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $belumbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kdprodi, 'kd_status' => '3'))->result_array();
+        $tidakbekerja = $this->m_feedback->getAllData('v_alumni_jobless', array('kd_prodi' => $this->session->kdprodi, 'kd_status' => '4'))->result_array();
 
         // RATA-RATA WAKTU TUNGGU BEKERJA
         $waktutunggu = 0;
@@ -368,6 +386,7 @@ class Admin extends CI_Controller {
 
     function penilaian_perusahaan()
     {
+        $data['user'] = $this->user[0];
         $company = $this->m_feedback->getAllData('ace_perusahaan', array('kd_perusahaan' => $this->session->user))->result_array();
         $hasil = $this->m_feedback->getAllData('ace_penilaian', array('kd_prodi' => '55201'))->result_array();
         $aspek = $this->m_feedback->getAllData('ace_aspek_penilaian')->result_array();

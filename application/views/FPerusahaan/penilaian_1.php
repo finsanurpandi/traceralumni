@@ -32,11 +32,11 @@
           <form method="post">
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control input-sm" name="nama"/>
+                    <input type="text" class="form-control input-sm" name="nama" required/>
                 </div>
                 <div class="form-group">
                     <label>Program Studi Asal Alumni</label>
-                    <select class="form-control input-sm" name="kd_prodi">
+                    <select class="form-control input-sm" name="kd_prodi" required>
                         <option></option>
                         <option value="26201">Teknik Industri</option>
                         <option value="55201">Teknik Informatika</option>
@@ -45,11 +45,11 @@
                 </div>
                 <div class="form-group">
                     <label>Posisi/Jabatan</label>
-                    <input type="text" class="form-control input-sm" name="posisi"/>
+                    <input type="text" class="form-control input-sm" name="posisi" required/>
                 </div>
                 <div class="form-group">
                     <label>Bulan Mulai Bekerja</label>
-                    <select class="form-control input-sm" name="bulan">
+                    <select class="form-control input-sm" name="bulan" required>
                         <option></option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                     <label>Tahun Mulai Bekerja</label>
-                    <input type="year" class="form-control input-sm" name="tahun"/>
+                    <input type="year" class="form-control input-sm" name="tahun" required/>
                 </div>
                 <div class="form-group">
                 <!-- <button type="submit" class="btn btn-primary btn-xs">Kirim</button> -->

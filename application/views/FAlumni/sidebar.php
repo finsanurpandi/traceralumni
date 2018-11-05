@@ -5,7 +5,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-      <img src="<?=base_url()?>assets/img/<?=$user['img']?>" class="img-circle" alt="User Image">
+      <img src="<?=base_url()?>assets/img/profiles/<?=$user['img']?>" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p><?=$user['nama']?></p>
@@ -27,19 +27,19 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
       <li id="dashboard">
-        <a href="<?=base_url()?>alumni">
+        <a href="<?=base_url()?>tracerstudy">
           <i class="fa fa-th"></i> <span>Dashboard</span>
         </a>
       </li>
       
         <li id="profil">
-        <a href="<?=base_url()?>alumni/profil">
+        <a href="<?=base_url()?>tracerstudy/profil">
             <i class="fa fa-th"></i> <span>Profil</span>
           </a>
         </li>
         <li id="survey">
-        <a href="<?=base_url()?>alumni/survey">
-            <i class="fa fa-th"></i> <span>Survey</span>
+        <a href="http://www.alumni.unsur.ac.id" target="_blank">
+            <i class="fa fa-th"></i> <span>Kuesioner</span>
           </a>
         </li>
         <li id="logout">

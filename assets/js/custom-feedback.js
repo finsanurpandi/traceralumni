@@ -133,6 +133,7 @@ function check_npm()
     });
 }
 
+// EDIT PERUSAHAAN
 $(document).on('click', '#btnEditPerusahaan', function(e){
     e.preventDefault();
 
@@ -159,6 +160,7 @@ $(document).on('click', '#btnEditPerusahaan', function(e){
     });
 });
 
+// EDIT ALUMNI
 $(document).on('click', '#btnEditAlumni', function(e){
     e.preventDefault();
 

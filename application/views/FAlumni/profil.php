@@ -49,7 +49,7 @@
     <section class="content-header">
       <br/>
       <ol class="breadcrumb">
-        <li><a href="<?=base_url()?>alumni"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?=base_url()?>tracerstudy"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Profil</li>
       </ol>
     </section>
@@ -66,20 +66,20 @@
 <div class="col-md-3"> <!--COL MD 3-->
 
   <br/>
-  <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditKarir" data-id="" aria-label="Close"><i class="fa fa-pencil"></i></button>
-  <img src="<?=base_url()?>assets/img/<?=$user['img']?>" class="profile-user-img img-responsive img-circle" alt="User Image">
+  <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditPicture" data-id="" aria-label="Close"><i class="fa fa-pencil"></i></button>
+  <img src="<?=base_url()?>assets/img/profiles/<?=$user['img']?>" class="profile-user-img img-responsive img-circle" alt="User Image">
   <h3 class="text-center"><?=$user['nama']?></h3>
   <!-- <p class="text-center"><?=$user['npm']?></p> -->
   <?php
   if (count($karir) == '0') {
-    echo "<p class='text-center'>Belum/Tidak Bekerja</p>";
+    echo "<p class='text-center'>Belum menambahkan karir</p>";
   } else {
     echo "<p class='text-center'>".$karir[0]['posisi']." at ".$karir[0]['nama_perusahaan']."</p>";
   }
   ?>
   <hr/>
   <div class="text-center">
-  <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditKarir" data-id="" aria-label="Close"><i class="fa fa-pencil"></i></button>
+  <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditProfil" data-npm="<?=$this->session->npm?>" aria-label="Close"><i class="fa fa-pencil"></i></button>
   <strong style="font-size:18px;">Alamat</strong>
   <p><?=$user['alamat']?></p>
 
@@ -151,7 +151,7 @@ foreach ($karir as $key => $value) {
   <!-- /.content-wrapper -->
 
 
-<!-- ADD MODAL -->
+<!-- ADD MODAL KARIR-->
 <div class="modal fade modal-primary-custom" tabindex="-1" role="dialog" id="modalAddKarir">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -256,7 +256,7 @@ foreach ($karir as $key => $value) {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- EDIT MODAL -->
+<!-- EDIT MODAL KARIR-->
 <div class="modal fade modal-success-custom" tabindex="-1" role="dialog" id="modalEditKarir">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -355,7 +355,71 @@ foreach ($karir as $key => $value) {
       <div class="modal-footer">
         <input type="hidden" name="id_karir" id="idKarir"/>
         <input type="reset" class="btn btn-default btn-xs" data-dismiss="modal" value="Close">
-        <input type="submit" class="btn btn-success btn-xs" name="editKarir" value="Submit"/>
+        <input type="submit" class="btn btn-success btn-xs" name="editKarir" value="Update"/>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- EDIT MODAL PROFIL-->
+<div class="modal fade modal-success-custom" tabindex="-1" role="dialog" id="modalEditProfil">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Data Profil Alumni</h4>
+      </div>
+
+      <div class="modal-body">
+        <form method="post">
+            <div class="form-group">
+                <label>Alamat</label>
+                <textarea name="alamat" class="form-control" required id="editProfilAlamat"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" id="editProfilEmail" required/>
+            </div>
+            <div class="form-group">
+                <label>No Telepon</label>
+                <input type="text" name="no_tlp" class="form-control" id="editProfilTlp" required/>
+            </div>
+      </div>
+            
+
+      <div class="modal-footer">
+        <input type="reset" class="btn btn-default btn-xs" data-dismiss="modal" value="Close">
+        <input type="submit" class="btn btn-success btn-xs" name="editProfil" value="Update"/>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- EDIT MODAL PICTURE-->
+<div class="modal fade modal-success-custom" tabindex="-1" role="dialog" id="modalEditPicture">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Profile Picture</h4>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Upload Picture</label>
+                <input type="file" name="pic" class="form-control" required/>
+                <p class="help-block">- Disarankan menggunakan gambar dengan ratio 1:1</p>
+                <p class="help-block">- Maksimal ukuran file sebesar 1MB dengan tipe file JPG/JPEG dan PNG</p>
+            </div>
+      </div>
+            
+
+      <div class="modal-footer">
+        <input type="reset" class="btn btn-default btn-xs" data-dismiss="modal" value="Close">
+        <input type="submit" class="btn btn-success btn-xs" name="editPicture" value="Upload"/>
         </form>
       </div>
     </div><!-- /.modal-content -->

@@ -130,23 +130,38 @@ class Feedback extends CI_Controller {
         $data['company'] = $company[0];
         $data['uraian'] = $uraian;
 
-        if ($fase == null) {
+        if ($fase == null) { // mengisi nik pegawai
             $sessionpegawai = $this->session->penilai;
-            if (isset($sessionpegawai)) {
+            @$alumni = $this->m_feedback->getAllData('ace_alumni_penilaian', array('kd_alumni' => $this->session->alumni, 'nik' => $this->session->penilai))->result_array();
+            $sessionalumni = $this->session->alumni;
+            
+            if (isset($sessionalumni) && $alumni[0]['status'] == '0') {
+                $url = "feedback/penilaian/".$this->encrypt->encode('2');
+                redirect($url, 'refresh');
+            } elseif (isset($sessionpegawai)) {
                 $url = "feedback/penilaian/".$this->encrypt->encode('1');
                 redirect($url, 'refresh');
             } else {
                 $this->load_view('fperusahaan/penilaian', $data);    
             }
-        } elseif ($fase == '1') {
-            $penilai = $this->m_feedback->getAllData('ace_pegawai', array('nik' => $this->session->penilai))->result_array();
-            $data['penilai'] = $penilai[0];
-            $this->load_view('fperusahaan/penilaian_1', $data);
-        } elseif ($fase == '2') {
+        } elseif ($fase == '1') { // mengisi data mahasiswa
+            @$alumni = $this->m_feedback->getAllData('ace_alumni_penilaian', array('kd_alumni' => $this->session->alumni, 'nik' => $this->session->penilai))->result_array();
+            $sessionalumni = $this->session->alumni;
+
+            if (isset($sessionalumni) && $alumni[0]['status'] == '0') {
+                $url = "feedback/penilaian/".$this->encrypt->encode('2');
+                redirect($url, 'refresh');
+            } else {
+                $penilai = $this->m_feedback->getAllData('ace_pegawai', array('nik' => $this->session->penilai))->result_array();
+                $data['penilai'] = $penilai[0];
+                $this->load_view('fperusahaan/penilaian_1', $data);
+            }
+            
+        } elseif ($fase == '2') { // mengisi penilaian
             $alumni = $this->m_feedback->getAllData('ace_alumni_penilaian', array('kd_alumni' => $this->session->alumni))->result_array();
             $data['alumni'] = $alumni[0];
             $this->load_view('fperusahaan/penilaian_2', $data);
-        } elseif ($fase == '3') {
+        } elseif ($fase == '3') { // hasil akhir penilaian
             $alumni = $this->m_feedback->getAllData('ace_alumni_penilaian', array('kd_alumni' => $this->session->alumni))->result_array();
             $data['alumni'] = $alumni[0];
             $this->load_view('fperusahaan/penilaian_3', $data);
@@ -214,7 +229,12 @@ class Feedback extends CI_Controller {
                 );
             }
 
+            $dataupdate = array(
+                'status' => '1'
+            );
+
             $this->m_feedback->insertAllData('ace_penilaian', $penilaian);
+            $this->m_feedback->updateData('ace_alumni_penilaian', $dataupdate, array('kd_alumni' => $this->session->alumni));
 
             $url = "feedback/penilaian/".$this->encrypt->encode('3');
             redirect($url, 'refresh');

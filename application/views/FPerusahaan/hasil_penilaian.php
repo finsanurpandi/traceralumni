@@ -45,7 +45,6 @@ if (!isset($sessionNik)) {
                     <div id="status-nik"></div>
                 </div>
                 <div class="form-group">
-                    <button type="button" id="btn-belum-mengisi" class="btn btn-link btn-xs">Belum pernah mengisi</button>
                     <input type="submit" value="Kirim" class="btn btn-primary btn-xs" name="submit_nik" id="submit-nik" disabled="true"/>
                 </div>
             </form>

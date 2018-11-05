@@ -1,11 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Alumni extends CI_Controller {
+class Tracerstudy extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('m_feedback');
+        $this->load->library('upload');	
 
         date_default_timezone_set("Asia/Bangkok");
 
@@ -78,7 +79,7 @@ class Alumni extends CI_Controller {
             }
             // END OF SET PIC
 
-            $kdprodi = substr($this->input->post('npm'),0,5);
+            //$kdprodi = substr($this->input->post('npm'),0,5);
 
             $thn_akademik = '';
             if (($this->input->post('bln_lulus') >= '9') || ($this->input->post('bln_lulus') <= '1')) {
@@ -90,7 +91,7 @@ class Alumni extends CI_Controller {
             $data = array(
                 'npm' => $this->input->post('npm'),
                 'pass' => sha1($this->input->post('pass')),
-                'kd_prodi' => $kdprodi,
+                'kd_prodi' => $this->input->post('kdprodi'),
                 'nama' => $this->input->post('nama'),
                 'alamat' => $this->input->post('alamat'),
                 'email' => $this->input->post('email'),
@@ -203,6 +204,63 @@ class Alumni extends CI_Controller {
             $this->m_feedback->updateData('ace_detail_alumni', $data, $where);
             redirect($this->uri->uri_string());
         }
+
+        // Edit Profil
+        $editProfil = $this->input->post('editProfil');
+
+        if (isset($editProfil)) {
+
+            $data = array(
+                'alamat' => $this->input->post('alamat'),
+                'email' => $this->input->post('email'),
+                'no_tlp' => $this->input->post('no_tlp')
+            );
+
+            $where = array('npm' => $this->session->npm);
+
+            $this->m_feedback->updateData('ace_alumni', $data, $where);
+            redirect($this->uri->uri_string());
+        }
+
+        // Edit Picture
+        $editPicture = $this->input->post('editPicture');
+
+        if (isset($editPicture)) {
+            
+            $npm = $this->session->npm;
+            $nmfile = "img_".$npm."_".time();
+            $config['upload_path']   =   "./assets/img/profiles/";
+            $config['allowed_types'] =   "jpg|jpeg|png"; 
+            $config['max_size']      =   "1000";
+            $config['max_width']     =   "1907";
+            $config['max_height']    =   "1280";
+            $config['file_name']     =   $nmfile;
+    
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('pic')) {
+			// 	$this->m_feedback->updateData('ace_alumni', $data, array('npm' => $this->session->username));
+
+			// 	$this->session->set_flashdata('profilsuccess', true);
+
+			// 	redirect($this->uri->uri_string()."?tab=profile");
+			// } else {
+
+                $fileinfo = $this->upload->data();
+                
+                if ($user[0]['img'] !== 'spongebob.jpg' || $user[0]['img'] !== 'patrick.jpg' || $user[0]['img'] !== 'sandy.jpg' || $user[0]['img'] !== 'crabs.jpg' || $user[0]['img'] !== 'plankton.jpg') {
+                    unlink("./assets/img/profiles/". $user[0]['img']);
+                }
+
+                $data = array('img' => $fileinfo['file_name']);
+
+				$this->m_feedback->updateData('ace_alumni', $data, array('npm' => $this->session->npm));
+
+				redirect($this->uri->uri_string());
+			}
+
+        }
+
     }
 
 

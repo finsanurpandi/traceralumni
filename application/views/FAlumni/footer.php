@@ -88,6 +88,7 @@ $('#modalEditKarir').on('hidden.bs.modal', function (e) {
        .end();
 })
 
+// EDIT ALUMNI KARIR
 $(document).on('click', '#btn-edit-karir', function(e){
 
   let id = $(this).data('id');
@@ -98,7 +99,6 @@ $(document).on('click', '#btn-edit-karir', function(e){
         data: {id: id},
         success: function(res){
           let data = JSON.parse(res);
-          console.log(data);
 
           $('#editKarirPosisi').val(data[0]['posisi']);
           $('#editKarirPerusahaan').val(data[0]['nama_perusahaan']);
@@ -137,6 +137,25 @@ $(document).on('click', '#btn-edit-karir', function(e){
           }
         }
     });
+});
+
+// EDIT ALUMNI PROFIL
+$(document).on('click', '#btn-edit-karir', function(e){
+
+let npm = $(this).data('npm');
+    
+$.ajax({
+      method: "post",
+      url: baseurl+"ajax/getAlumni",
+      data: {npm:npm},
+      success: function(res){
+        let data = JSON.parse(res);
+
+        $('#editProfilAlamat').val(data[0]['alamat']);
+        $('#editProfilEmail').val(data[0]['email']);
+        $('#editProfilTlp').val(data[0]['no_tlp']);
+      }
+  });
 });
 
 $('#editStillWorks').click(function(e){

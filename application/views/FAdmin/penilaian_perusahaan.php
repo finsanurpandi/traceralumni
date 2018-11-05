@@ -14,7 +14,7 @@ function percentase($val, $responden)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Prodi
+        Hai, Prodi <?=ucwords($user['username'])?>
       </h1>
       <ol class="breadcrumb">
         <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Welcome</a></li>
@@ -27,11 +27,12 @@ function percentase($val, $responden)
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Selamat Datang</h3>
+          <h3 class="box-title">Tanggapan Pengguna Lulusan</h3>
         </div>
         <div class="box-body">
 <!-- conternt here -->
-<p>Jumlah tanggapan sebanyak <?=$responden?>
+<div class="well well-sm">Jumlah tanggapan dari perusahaan sebanyak <strong style="font-size:20px;"><?=$responden?></strong></div>
+<hr/>
 <table class="table table-striped">
 <thead>    
     <tr>

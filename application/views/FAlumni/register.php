@@ -53,8 +53,8 @@
         <input type="password" name="pass" id="pass" class="form-control" placeholder="******" required>
       </div>
       <div class="form-group has-feedback">
-        <label>Ulangi Password</label>
-        <input type="password" name="c_pass" id="c_pass" class="form-control" placeholder="******" onchange="check_pass();" required>
+        <label>Konfirmasi Password</label>
+        <input type="password" name="c_pass" id="c_pass" class="form-control" placeholder="******" onkeyup="check_pass();" required>
         <div id="status-pass"></div>
       </div>
       <div class="form-group has-feedback">
@@ -63,6 +63,15 @@
       </div>
     </div> <!-- END of COL -->
     <div class="col-md-6 col-xs-12"> <!-- COL -->
+      <div class="form-group has-feedback">
+        <label>Program Studi</label>
+        <select class="form-control" name="kdprodi" required>
+          <option></option>
+          <option value="26201">Teknik Industri</option>
+          <option value="55201">Teknik Informatika</option>
+          <option value="22201">Teknik Sipil</option>
+        </select>
+      </div>
       <div class="form-group has-feedback">
         <label>Email</label>
         <input type="email" name="email" class="form-control" placeholder="Alamat email aktif" required>
@@ -154,7 +163,7 @@ function check_npm1()
         url: baseurl+"ajax/checkNpm",
         data: {npm: npm},
         success: function(res){
-            if (res == 1) {
+            if (res == 1 || npm == "") {
                 $('#status-npm').html("<p class='text-danger'><i class='fa fa-remove'></i> NPM sudah digunakan!!!</p>");
                 $('#btn-add-mhs').prop('disabled', true);
             } else {
@@ -171,11 +180,11 @@ function check_pass()
     let cpass = $('#c_pass').val();
 
     if (pass !== cpass) {
-        $('#status-pass').html("<p class='text-danger'><i class='fa fa-remove'></i> Password dan ulangi password tidak sama</p>");
-        $('#btn-add-mhs').prop('disabled', true);
+        $('#status-pass').html("<p class='text-danger'><i class='fa fa-remove'></i> Password tidak sama</p>");
+        //$('#btn-add-mhs').prop('disabled', true);
     } else {
         $('#status-pass').html("");
-        $('#btn-add-mhs').prop('disabled', false);
+        //$('#btn-add-mhs').prop('disabled', false);
     }
 }
 
