@@ -17,7 +17,7 @@ class Admin extends CI_Controller {
 
     function load_view($url, $data = null)
     {
-        $this->load->view('fadmin/head');
+        $this->load->view('FAdmin/head');
         $this->load->view('fadmin/header');
         
 
