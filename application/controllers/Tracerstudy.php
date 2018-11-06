@@ -52,7 +52,7 @@ class Tracerstudy extends CI_Controller {
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
         $data['status'] = $status;
 
-        $this->load->view('FAlumni/register', $data);
+        $this->load->view('falumni/register', $data);
 
         $add = $this->input->post('addAlumni');
         if (isset($add)) {
