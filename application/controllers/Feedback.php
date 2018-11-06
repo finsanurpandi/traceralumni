@@ -5,7 +5,7 @@ class Feedback extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('m_tracer');
+        $this->load->model('m_feedback');
 
         date_default_timezone_set("Asia/Bangkok");
     }
