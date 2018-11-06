@@ -126,11 +126,13 @@ class Tracerstudy extends CI_Controller {
         $user = $this->m_feedback->getAllData('ace_alumni', array('npm' => $this->session->npm))->result_array();
         $data['user'] = $user[0];
 
+        $perusahaan = $this->m_feedback->getAllData('ace_detail_alumni')->result_array();
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
         // $karir = $this->m_feedback->getDetailKarir($user[0]['npm']);
         $karir = $this->m_feedback->getAllData('ace_detail_alumni', array('npm' => $user[0]['npm']), array('tahun_bekerja' => 'DESC'))->result_array();
         $data['status'] = $status;
         $data['karir'] = $karir;
+        $data['perusahaan'] = $perusahaan;
 
         $this->load_view('falumni/profil', $data);
 

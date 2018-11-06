@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_feedback extends CI_Model {
+class M_Feedback extends CI_Model {
 
 	function __construct()
 	{

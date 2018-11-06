@@ -13,6 +13,8 @@
 
 <!-- jQuery 3 -->
 <script src="<?=base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="<?=base_url()?>assets/bower_components/jquery-ui/usethis/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?=base_url()?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -53,6 +55,29 @@
 baseurl = "<?=base_url()?>";
 
 let uri = '<?=$this->uri->segment(2)?>';
+
+$(function(){
+  var perusahaan = [];
+  var bidangusaha = [];
+
+  <?php
+  foreach ($perusahaan as $key => $value) {
+  ?>
+      perusahaan.push("<?=$value['nama_perusahaan']?>");
+      bidangusaha.push("<?=$value['bidang_usaha']?>");
+  <?php } ?>
+
+  $('#addPerusahaan').autocomplete({
+    source: perusahaan
+  });
+
+  $('#addBidangUsaha').autocomplete({
+    source: bidangusaha,
+    appendTo: '#modalAddKarir'
+  });
+
+  //$( "#addPerusahaan" ).autocomplete( "option", "appendTo", ".eventInsForm" );
+});
 
 function AlumniClearMenu(){
   $('#dashboard').remove('.active');

@@ -160,7 +160,7 @@ foreach ($karir as $key => $value) {
         <h4 class="modal-title">Tambah Data Karir Alumni</h4>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body ui-front">
         <form method="post">
             <div class="form-group">
                 <label>Posisi</label>
@@ -168,11 +168,11 @@ foreach ($karir as $key => $value) {
             </div>
             <div class="form-group">
                 <label>Perusahaan</label>
-                <input type="text" name="nama_pt" class="form-control" required/>
+                <input type="text" name="nama_pt" class="form-control" id="addPerusahaan" required/>
             </div>
             <div class="form-group">
                 <label>Bidang Usaha</label>
-                <input type="text" name="bidang_usaha" class="form-control" required/>
+                <input type="text" name="bidang_usaha" class="form-control" id="addBidangUsaha" required/>
             </div>
             <div class="form-group">
                 <label>Lokasi</label>

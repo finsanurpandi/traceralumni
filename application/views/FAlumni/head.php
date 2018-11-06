@@ -37,6 +37,9 @@
   <!-- Select2 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bower_components/select2/dist/css/select2.min.css">
 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="<?=base_url()?>assets/bower_components/jquery-ui/usethis/jquery-ui.min.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
