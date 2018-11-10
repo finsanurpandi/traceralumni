@@ -306,11 +306,21 @@ class Admin extends CI_Controller {
         // EDIT HAPUS
         $deletePt = $this->input->post('deletePerusahaan');
         if (isset($deletePt)) {
-            # code...
 
             $this->m_feedback->insertData('ace_perusahaan', $data);
 
             $this->session->set_flashdata('delete', true);
+
+            redirect($this->uri->uri_string());
+        }
+
+        // SET PASSWORD
+        $setpass = $this->input->post('setPass');
+        if (isset($setpass)) {
+            $where = array('kd_perusahaan' => $this->input->post('kdPerusahaan'));
+
+            // print_r($this->input->post());
+            $this->m_feedback->updateData('ace_perusahaan', array('pass' => sha1('12345')), $where);
 
             redirect($this->uri->uri_string());
         }

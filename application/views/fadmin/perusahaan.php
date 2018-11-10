@@ -68,6 +68,8 @@
         <th>Alamat</th>
         <th>Bidang Usaha</th>
         <th>Email</th>
+        <th>Username</th>
+        <th>Password</th>
         <th>Aksi</th>
     </tr>
 </thead>
@@ -82,6 +84,19 @@ foreach ($perusahaan as $key => $value) {
       <td><?=$value['alamat']?></td>
       <td><?=$value['bidang_usaha']?></td>
       <td><?=$value['email']?></td>
+      <td><?=$value['kd_perusahaan']?></td>
+      <td>
+        <form method="post">
+        <?php
+          if (empty($value['pass'])) {
+            echo "<input type='submit' class='btn btn-primary btn-xs' name='setPass' value='setPass'>";
+          } else {
+            echo "<input type='submit' class='btn btn-success btn-xs' name='setPass' value='Reset'>";
+          }
+        ?>
+        <input type="hidden" value="<?=$value['kd_perusahaan']?>" name="kdPerusahaan"/>
+        </form>
+      </td>
       <td>
         <a href="<?=base_url()?>feedbackadmin/detail_perusahaan/<?=$this->encrypt->encode($value['kd_perusahaan'])?>" class="btn btn-info btn-xs"><i class="fa fa-search"></i> detail</a>
         <button type="button" id="btnEditPerusahaan" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalEditPerusahaan" data-perusahaan="<?=$value['kd_perusahaan']?>"><i class="fa fa-pencil"></i> edit</button>
