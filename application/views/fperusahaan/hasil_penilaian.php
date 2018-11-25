@@ -141,3 +141,7 @@ $no = 1;
     </div>
   </div>
 </div>
+
+<script>
+baseurl = "<?=base_url()?>";
+</script>

@@ -41,8 +41,20 @@
           <ul class="treeview-menu">
             <li id="prodiAlumni"><a href="<?=base_url()?>admin/alumni"><i class="fa fa-circle-o"></i> Data Alumni</a></li>
             <li id="prodiJmlAlumni"><a href="<?=base_url()?>admin/jmlalumni"><i class="fa fa-circle-o"></i> Jumlah Alumni</a></li>
-            <li id="prodiPerusahaan"><a href="<?=base_url()?>admin/perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
+            <li id="prodiPerusahaan"><a href="<?=base_url()?>admin/perusahaan"><i class="fa fa-circle-o"></i> Pengguna Lulusan</a></li>
             <li id="prodiUraian"><a href="<?=base_url()?>admin/uraian"><i class="fa fa-circle-o"></i> Uraian Penilaian</a></li>
+          </ul>
+        </li>
+        <li id="prodiRekapData" class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Rekap Data</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="prodiRekapAlumni"><a href="<?=base_url()?>admin/rekap_alumni"><i class="fa fa-circle-o"></i> Alumni</a></li>
+            <li id="prodiRekapPerusahaan"><a href="<?=base_url()?>admin/rekap_perusahaan"><i class="fa fa-circle-o"></i> Pengguna Lulusan</a></li>
           </ul>
         </li>
         <li id="prodiHasilPenilaian" class="treeview">
@@ -54,7 +66,7 @@
           </a>
           <ul class="treeview-menu">
             <li id="prodiPenilaianAlumni"><a href="<?=base_url()?>admin/penilaian_alumni"><i class="fa fa-circle-o"></i> Alumni</a></li>
-            <li id="prodiPenilaianPerusahaan"><a href="<?=base_url()?>admin/penilaian_perusahaan"><i class="fa fa-circle-o"></i> Perusahaan</a></li>
+            <li id="prodiPenilaianPerusahaan"><a href="<?=base_url()?>admin/penilaian_perusahaan"><i class="fa fa-circle-o"></i> Pengguna Lulusan</a></li>
           </ul>
         </li>
         <li id="prodiKinerja">
@@ -115,5 +127,11 @@
     } else if (uri == 'penilaian_perusahaan') {
             $('#prodiHasilPenilaian').addClass('active');
             $('#prodiPenilaianPerusahaan').addClass('active');
+    } else if (uri == 'rekap_alumni') {
+            $('#prodiRekapData').addClass('active');
+            $('#prodiRekapAlumni').addClass('active');
+    } else if (uri == 'rekap_perusahaan') {
+            $('#prodiRekapData').addClass('active');
+            $('#prodiRekapPerusahaan').addClass('active');
     }
 </script>

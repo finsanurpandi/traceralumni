@@ -47,10 +47,44 @@ class Tracerstudy extends CI_Controller {
         $this->load_view('falumni/dashboard', $data);
     }
 
+    function verifikasi()
+    {
+        $npm = $this->session->npm;
+        if (!isset($npm)) {
+            $this->load->view('falumni/verifikasi');
+        } else {
+            redirect("tracerstudy/register", "refresh");
+        }
+        
+
+        $verifikasi = $this->input->post('login');
+        if (isset($verifikasi)) {
+
+            $mhsnum = $this->m_feedback->getNumRows('ace_data_alumni', array('npm' => $this->input->post('npm')));
+
+            if ($mhsnum == 1) {
+                $this->session->set_userdata('npm', $this->input->post('npm'));
+                redirect("tracerstudy/register", "refresh");
+            } else {
+                $this->session->set_flashdata('error', true);
+                redirect($this->uri->uri_string());
+            }
+            
+        }
+    }
+
     function register()
     {
+
+        $npm = $this->session->npm;
+        if (!isset($npm)) {
+            redirect("tracerstudy/verifikasi", "refresh");
+        }
+
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
         $data['status'] = $status;
+        $alumni = $this->m_feedback->getAllData('ace_data_alumni', array('npm' => $this->session->npm))->result_array();
+        $data['alumni'] = $alumni;
 
         $this->load->view('falumni/register', $data);
 
@@ -91,7 +125,7 @@ class Tracerstudy extends CI_Controller {
             $data = array(
                 'npm' => $this->input->post('npm'),
                 'pass' => sha1($this->input->post('pass')),
-                'kd_prodi' => $this->input->post('kdprodi'),
+                'kd_prodi' => $alumni[0]['kd_prodi'],
                 'nama' => $this->input->post('nama'),
                 'alamat' => $this->input->post('alamat'),
                 'email' => $this->input->post('email'),
@@ -104,6 +138,8 @@ class Tracerstudy extends CI_Controller {
             );
 
             $this->m_feedback->insertData('ace_alumni', $data);
+
+            $this->session->unset_userdata('npm');
 
             redirect("login/alumni", "refresh");
         }

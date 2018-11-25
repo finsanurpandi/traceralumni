@@ -32,16 +32,11 @@
           <form method="post">
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control input-sm" name="nama" required/>
+                    <input type="text" class="form-control input-sm" name="nama" id="namaMhs" required onchange="getProdi()"/>
                 </div>
                 <div class="form-group">
                     <label>Program Studi Asal Alumni</label>
-                    <select class="form-control input-sm" name="kd_prodi" required>
-                        <option></option>
-                        <option value="26201">Teknik Industri</option>
-                        <option value="55201">Teknik Informatika</option>
-                        <option value="22201">Teknik Sipil</option>
-                    </select>
+                    <input type="text" class="form-control input-sm" name="kd_prodi" id="prodiMhs" required readonly/>
                 </div>
                 <div class="form-group">
                     <label>Posisi/Jabatan</label>
@@ -71,7 +66,7 @@
                 </div>
                 <div class="form-group">
                 <!-- <button type="submit" class="btn btn-primary btn-xs">Kirim</button> -->
-                <input type="submit" value="Kirim" class="btn btn-primary btn-xs" name="add-alumni"/>
+                <input type="submit" value="Kirim" class="btn btn-primary btn-xs" name="add-alumni" id="addAlumni" disabled/>
                 </div>
             </form>
             </div> <!-- col-md and col-xs -->

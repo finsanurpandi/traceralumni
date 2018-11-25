@@ -59,4 +59,34 @@ class Ajax extends CI_Controller {
         echo json_encode($data);
     }
 
+    function getprodi()
+    {
+        $nama = $this->input->post('nama');
+        $num = $this->m_feedback->getAllData('ace_data_alumni', array('nama' => $nama))->num_rows();
+        
+        if ($num == 1) {
+            $data = $this->m_feedback->getAllData('ace_data_alumni', array('nama' => $nama))->result_array();
+            echo json_encode($data);
+        } else {
+            echo $num;
+        }
+        
+    }
+
+    function getAlumniPerusahaan()
+    {
+        $npm = $this->input->post('npm');
+        $data = $this->m_feedback->getAllData('ace_detail_alumni', array('npm' => $npm))->result_array();
+        echo json_encode($data);
+    }
+
+    function getPerusahaanAlumni()
+    {
+        $nama = $this->input->post('nama');
+        $kdprodi = $this->input->post('kdprodi');
+        $data = $this->m_feedback->getDetailPengguna($kdprodi, $nama);
+        // $data = $this->m_feedback->getAllData('ace_detail_alumni', array('nama_perusahaan' => $nama))->result_array();
+        echo json_encode($data);
+    }
+
 }

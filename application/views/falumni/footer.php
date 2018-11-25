@@ -86,8 +86,9 @@ function AlumniClearMenu(){
 }
 
 if (uri == '') {
-          AlumniClearMenu();
-          $('#dashboard').addClass('active');
+          // AlumniClearMenu();
+          $('#welcome').addClass('active');
+          alert('kosong');
   } else if (uri == 'profil') { 
           $('#informasi').addClass('active');
           $('#profil').addClass('active');

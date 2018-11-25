@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Feedback Pengguna Alumni</title>
+  <title>Login Alumni</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- ICON -->
+  <link rel="icon" href="<?=base_url()?>assets/img/ico_ft.png" type="image/x-icon" />
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -30,38 +32,35 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Feedback</b> Pengguna Alumni</a>
+    <a href="#"><b>Tracer</b>Study</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Silahkan login untuk memulai penilaian</p>
+    <p class="login-box-msg">Masukan NPM anda.</p>
 
     <form method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username" name="username" required>
+        <input type="text" class="form-control" placeholder="NPM" name="npm" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <?php
         if (@$this->session->flashdata('error') == true) {
       ?>
       <small class="text-danger">
-        Wrong Username or Password!!!
+        Maaf, kami tidak menemukan data NPM yang anda masukan!
       </small>
 
       <?php
         }
       ?>
+<br/>
       <div class="row">
         <div class="col-xs-8">
-          
+        <a href="<?=base_url()?>login/alumni">Sudah mendaftar?</a>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-            <input type="submit" class="btn btn-primary btn-block btn-flat" value="Login" name="submit"/>
+          <input type="submit" class="btn btn-primary btn-block btn-flat" name="login" value="Verifikasi">
         </div>
         <!-- /.col -->
       </div>

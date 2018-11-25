@@ -26,9 +26,9 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
-      <li id="dashboard">
+      <li id="welcome">
         <a href="<?=base_url()?>tracerstudy">
-          <i class="fa fa-th"></i> <span>Dashboard</span>
+          <i class="fa fa-th"></i> <span>Welcome</span>
         </a>
       </li>
       

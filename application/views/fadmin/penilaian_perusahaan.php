@@ -31,8 +31,6 @@ function percentase($val, $responden)
         </div>
         <div class="box-body">
 <!-- conternt here -->
-<div class="well well-sm">Jumlah tanggapan dari perusahaan sebanyak <strong style="font-size:20px;"><?=$responden?></strong></div>
-<hr/>
 <table class="table table-striped">
 <thead>    
     <tr>
@@ -61,6 +59,11 @@ $no = 1;
 </tbody>
 </table>
 <br/><br/>
+
+
+
+
+
 <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Grafik Tanggapan Pengguna Lulusan</h3>
@@ -103,10 +106,10 @@ var cukup = [];
 var kurang = [];
 
 <?php foreach ($data as $key => $value) { ?>
-    sangatbaik.push(<?=((int)$value['sangat_baik']/$responden)*100?>);
-    baik.push(<?=((int)$value['baik']/$responden)*100?>);
-    cukup.push(<?=((int)$value['cukup']/$responden)*100?>);
-    kurang.push(<?=((int)$value['kurang']/$responden)*100?>);
+    sangatbaik.push(<?=round(((int)$value['sangat_baik']/$responden)*100,2)?>);
+    baik.push(<?=round(((int)$value['baik']/$responden)*100,2)?>);
+    cukup.push(<?=round(((int)$value['cukup']/$responden)*100,2)?>);
+    kurang.push(<?=round(((int)$value['kurang']/$responden)*100,2)?>);
 <?php } ?>
 
 

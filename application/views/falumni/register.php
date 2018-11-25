@@ -1,3 +1,16 @@
+<?php
+  function getProdi($kdprodi)
+  {
+    if ($kdprodi == '22201') {
+      echo "TEKNIK SIPIL";
+    } elseif ($kdprodi == '26201') {
+      echo "TEKNIK INDUSTRI";
+    } elseif ($kdprodi == '55201') {
+      echo "TEKNIK INFORMATIKA";
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,15 +54,14 @@
     <div class="col-md-6 col-xs-12"> <!-- COL -->
       <div class="form-group has-feedback">
         <label>NPM</label>
-        <input type="number" name="npm" id="npm" class="form-control" placeholder="Nomor Pendaftaran Mahasiswa" onchange="check_npm1();">
-        <div id="status-npm"></div>
+        <input type="number" name="npm" class="form-control" value="<?=$alumni[0]['npm']?>" readonly>
       </div>
       <div class="form-group has-feedback">
         <label>Nama Lengkap</label>
-        <input type="text" name="nama" class="form-control" placeholder="John Doe" required>
+        <input type="text" name="nama" class="form-control" value="<?=$alumni[0]['nama']?>" readonly>
       </div>
       <div class="form-group has-feedback">
-        <label>Password</label>
+        <label>Set Password</label>
         <input type="password" name="pass" id="pass" class="form-control" placeholder="******" required>
       </div>
       <div class="form-group has-feedback">
@@ -65,12 +77,7 @@
     <div class="col-md-6 col-xs-12"> <!-- COL -->
       <div class="form-group has-feedback">
         <label>Program Studi</label>
-        <select class="form-control" name="kdprodi" required>
-          <option></option>
-          <option value="26201">Teknik Industri</option>
-          <option value="55201">Teknik Informatika</option>
-          <option value="22201">Teknik Sipil</option>
-        </select>
+        <input type="text" name="kdprodi" class="form-control" value="<?php getProdi($alumni[0]['kd_prodi'])?>" readonly>
       </div>
       <div class="form-group has-feedback">
         <label>Email</label>
@@ -181,10 +188,10 @@ function check_pass()
 
     if (pass !== cpass) {
         $('#status-pass').html("<p class='text-danger'><i class='fa fa-remove'></i> Password tidak sama</p>");
-        //$('#btn-add-mhs').prop('disabled', true);
+        $('#btn-add-mhs').prop('disabled', true);
     } else {
         $('#status-pass').html("");
-        //$('#btn-add-mhs').prop('disabled', false);
+        $('#btn-add-mhs').prop('disabled', false);
     }
 }
 

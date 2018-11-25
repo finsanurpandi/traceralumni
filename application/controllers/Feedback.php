@@ -29,7 +29,7 @@ class Feedback extends CI_Controller {
 
     function check_login()
     {
-        if (($this->session->login_in !== TRUE) && ($this->session->role !== '3')) {
+        if (($this->session->login_in !== TRUE) && ($this->session->role !== '2')) {
             redirect('feedback', 'refresh');
         }
     }
@@ -84,7 +84,7 @@ class Feedback extends CI_Controller {
             $user_account = array (
               'login_in' => TRUE,
               'user' => $user,
-              'role' => '3'
+              'role' => '2'
             );
 
             $data = array(
@@ -126,9 +126,11 @@ class Feedback extends CI_Controller {
         $fase = $this->encrypt->decode($fase);
         $company = $this->m_feedback->getAllData('ace_perusahaan', array('kd_perusahaan' => $this->session->user))->result_array();
         $uraian = $this->m_feedback->getAllData('ace_aspek_penilaian', null, array('kd_aspek' => 'ASC'))->result_array();
+        $mhs = $this->m_feedback->getAllData('ace_data_alumni')->result_array();
 
         $data['company'] = $company[0];
         $data['uraian'] = $uraian;
+        $data['mhs'] = $mhs;
 
         if ($fase == null) { // mengisi nik pegawai
             $sessionpegawai = $this->session->penilai;
@@ -174,6 +176,7 @@ class Feedback extends CI_Controller {
                 'nama' => $this->input->post('nama'),
                 'nik' => $this->input->post('nik'),
                 'posisi' => $this->input->post('posisi'),
+                'kd_perusahaan' => $this->session->user
             );
 
             $this->m_feedback->insertData('ace_pegawai', $data);
@@ -195,9 +198,18 @@ class Feedback extends CI_Controller {
         // submit alumni
         $addAlumni = $this->input->post('add-alumni');
         if (isset($addAlumni)) {
+            $prodi = null;
+            if ($this->input->post('kd_prodi') == 'TEKNIK INFORMATIKA') {
+                $prodi = '55201';
+            } elseif ($this->input->post('kd_prodi') == 'TEKNIK SIPIL') {
+                $prodi = '22201';
+            } elseif ($this->input->post('kd_prodi') == 'TEKNIK SIPIL') {
+                $prodi = '26201';
+            }
+
             $data = array(
                 'kd_perusahaan' => $company[0]['kd_perusahaan'],
-                'kd_prodi' => $this->input->post('kd_prodi'),
+                'kd_prodi' => $prodi,
                 'nik' => $this->session->penilai,
                 'nama' => $this->input->post('nama'),
                 'posisi' => $this->input->post('posisi'),

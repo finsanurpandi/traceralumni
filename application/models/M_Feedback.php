@@ -159,6 +159,41 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
+	function getTotalAlumni($kdprodi, $status)
+	{
+		$sql = "SELECT angkatan, COUNT(angkatan) AS Total FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' AND status = '".$status."' GROUP BY angkatan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getJumlahFeedback($kdprodi)
+	{
+		$sql = "SELECT ace_perusahaan.nama_perusahaan, COUNT(ace_alumni_penilaian.kd_perusahaan) AS jumlah FROM `ace_alumni_penilaian` LEFT JOIN ace_perusahaan ON ace_alumni_penilaian.kd_perusahaan = ace_perusahaan.kd_perusahaan WHERE ace_alumni_penilaian.kd_prodi = '".$kdprodi."' GROUP BY ace_alumni_penilaian.kd_perusahaan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getDataAlumni($kdprodi)
+	{
+		$sql = "SELECT ace_alumni.*, ace_data_alumni.angkatan FROM `ace_alumni` JOIN ace_data_alumni ON ace_alumni.npm = ace_data_alumni.npm WHERE ace_alumni.kd_prodi = '".$kdprodi."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getPenggunaLulusan($kdprodi)
+	{
+		$sql = "SELECT ace_detail_alumni.nama_perusahaan, ace_detail_alumni.bidang_usaha, ace_detail_alumni.lokasi, ace_detail_alumni.email, COUNT(ace_detail_alumni.npm) AS jml_mhs, ace_alumni.kd_prodi FROM `ace_detail_alumni` LEFT JOIN ace_alumni ON ace_alumni.npm = ace_detail_alumni.npm WHERE ace_alumni.kd_prodi = '".$kdprodi."' GROUP BY nama_perusahaan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getDetailPengguna($kdprodi, $perusahaan)
+	{
+		$sql = "SELECT ace_data_alumni.*, ace_detail_alumni.* FROM `ace_data_alumni` JOIN ace_detail_alumni ON ace_data_alumni.npm = ace_detail_alumni.npm WHERE ace_data_alumni.kd_prodi = '".$kdprodi."' AND ace_detail_alumni.nama_perusahaan = '".$perusahaan."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 
 // INSERT DATA
 

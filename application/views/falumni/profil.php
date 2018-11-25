@@ -114,7 +114,7 @@ if (count($karir) == '0') {
 foreach ($karir as $key => $value) {
 ?>
 
-<div class="bs-callout bs-callout-default">
+<div class="bs-callout bs-callout-primary">
 <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditKarir" data-id="<?=$value['id_karir']?>" aria-label="Close"><i class="fa fa-pencil"></i></button>
   <h4><?=$value['posisi']?></h4>
   <p><?=$value['nama_perusahaan']?> (<small><?=$value['bidang_usaha']?></small>)</p>

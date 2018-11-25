@@ -133,6 +133,8 @@ function check_npm()
     });
 }
 
+
+
 // EDIT PERUSAHAAN
 $(document).on('click', '#btnEditPerusahaan', function(e){
     e.preventDefault();
@@ -251,9 +253,9 @@ function aspek(data)
     } else if (data == '2') {
         return "<span class='label label-warning'>Cukup</span>";
     } else if (data == '3') {
-        return "<span class='label label-success'>Baik</span>";
+        return "<span class='label label-primary'>Baik</span>";
     } else if (data == '4') {
-        return "<span class='label label-primary'>Sangat Baik</span>";
+        return "<span class='label label-success'>Sangat Baik</span>";
     }
 }
 

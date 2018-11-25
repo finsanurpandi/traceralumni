@@ -48,6 +48,22 @@ class Admin extends CI_Controller {
     function alumni()
     {
         $data['user'] = $this->user[0];
+        $alumni = $this->m_feedback->getAllData('ace_data_alumni',array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $totalAlumni = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Lulus');
+        $totalAktif = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'AKTIF');
+        $totalMundur = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Mengundurkan diri');
+        
+        $data['alumni'] = $alumni;
+        $data['total'] = $totalAlumni;
+        $data['aktif'] = $totalAktif;
+        $data['mundur'] = $totalMundur;
+
+        $this->load_view('fadmin/alumni', $data);
+    }
+
+    function alumni1()
+    {
+        $data['user'] = $this->user[0];
 
         $alumni = $this->m_feedback->getAllData('ace_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('kd_prodi' => $this->session->kdprodi))->result_array();
@@ -348,6 +364,22 @@ class Admin extends CI_Controller {
         $this->load_view('fadmin/uraian', $data);
     }
 
+    function rekap_alumni()
+    {
+        $data['user'] = $this->user[0];
+        $alumni = $this->m_feedback->getDataAlumni($this->session->kdprodi);
+        $data['alumni'] = $alumni;
+        $this->load_view('fadmin/rekap_alumni', $data);
+    }
+
+    function rekap_perusahaan()
+    {
+        $data['user'] = $this->user[0];
+        $perusahaan = $this->m_feedback->getPenggunaLulusan($this->session->kdprodi);
+        $data['perusahaan'] = $perusahaan;
+        $this->load_view('fadmin/rekap_perusahaan', $data);
+    }
+
     function penilaian_alumni()
     {
         $data['user'] = $this->user[0];
@@ -398,8 +430,9 @@ class Admin extends CI_Controller {
     {
         $data['user'] = $this->user[0];
         $company = $this->m_feedback->getAllData('ace_perusahaan', array('kd_perusahaan' => $this->session->user))->result_array();
-        $hasil = $this->m_feedback->getAllData('ace_penilaian', array('kd_prodi' => '55201'))->result_array();
+        $hasil = $this->m_feedback->getAllData('ace_penilaian', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $aspek = $this->m_feedback->getAllData('ace_aspek_penilaian')->result_array();
+        $jumlah = $this->m_feedback->getJumlahFeedback($this->session->kdprodi);
         $datahasil = array();
 
         for ($i=0; $i < count($aspek); $i++) { 
@@ -438,6 +471,7 @@ class Admin extends CI_Controller {
         // $data['company'] = $company[0];
         $data['responden'] = $responden;
         $data['aspek'] = $aspek;
+        $data['jumlah'] = $jumlah;
         $this->load_view('fadmin/penilaian_perusahaan', $data);
     }
 

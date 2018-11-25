@@ -9,7 +9,7 @@
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active"><i class="fa fa-dashboard"></i> Welcome</li>
       </ol>
     </section>
 
@@ -24,7 +24,9 @@
         <div class="box-body">
 <!-- conternt here -->
 
-          Dashboard
+          <p>Tracer alumni merupakan sistem yang digunakan untuk melakukan pelacakan karir alumni Fakultas Teknik Universitas Suryakancana. Untuk mulai mengisi histori karir, silahkan mengakses menu <a href="<?=base_url()?>tracerstudy/profil">Profil</a>. </p>
+          <p>Terima kasih atas waktu dan perhatiannya. </p>
+          <p>Salam.</p>
 
 <!-- end content           -->
         </div>

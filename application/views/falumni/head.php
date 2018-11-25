@@ -69,7 +69,7 @@
     border: 1px solid #eee;
     border-left-width: 5px;
     border-radius: 3px;
-    background-color: #eeefff;
+    background-color: #f9f9f9;
 }
 .bs-callout h4 {
     margin-top: 0;

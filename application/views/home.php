@@ -63,13 +63,15 @@
       <div class="container my-auto">
         <div class="row">
           <div class="col-lg-10 mx-auto">
+            <img src="<?=base_url()?>assets/img/logo_unsur.png" width="100px"/>
+            <img src="<?=base_url()?>assets/img/logo_ft.png" width="100px"/>
             <h1 class="text-uppercase">
               <strong>Bersama meraih masa depan yang cerah</strong>
             </h1>
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Beberapa lulusan dari Fakultas Teknik telah bekerja di Perusahaan Besar Negara maupun Swasta, serta Startup yang sedang berkembang.</p>
+            <p class="mb-5">Beberapa lulusan dari Fakultas Teknik telah bekerja di Perusahaan Besar Negara maupun Swasta, serta Startup yang sedang berkembang.</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Info Selengkapnya</a>
           </div>
         </div>
@@ -80,6 +82,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
+            <img src="<?=base_url()?>assets/img/logo_unsur.png" width="100px"/>
+            <img src="<?=base_url()?>assets/img/logo_ft.png" width="100px"/>
+            <br/><br/>
             <h2 class="section-heading text-white">Fakultas Teknik, Universitas Suryakancana</h2>
             <hr class="light my-4">
             <p class="text-faded mb-4">
@@ -131,6 +136,10 @@
             </div>
           </div>
         </div>
+        <div class="text-center">
+          <br/><hr/>
+          <a class="btn btn-primary btn-xl sr-button" href="<?=base_url()?>login/alumni" target="_blank">Tracer Alumni</a>
+        </div>
       </div>
     </section>
 
@@ -145,15 +154,6 @@
           </div>
           <div class="col-lg-4 col-sm-6">
               <img class="img-fluid" src="<?=base_url()?>assets/homepage/img/portfolio/thumbnails/3.jpg" alt="">
-          </div>
-          <div class="col-lg-4 col-sm-6">
-              <img class="img-fluid" src="<?=base_url()?>assets/homepage/img/portfolio/thumbnails/4.jpg" alt="">
-          </div>
-          <div class="col-lg-4 col-sm-6">
-              <img class="img-fluid" src="<?=base_url()?>assets/homepage/img/portfolio/thumbnails/5.jpg" alt="">
-          </div>
-          <div class="col-lg-4 col-sm-6">
-              <img class="img-fluid" src="<?=base_url()?>assets/homepage/img/portfolio/thumbnails/6.jpg" alt="">
           </div>
         </div>
       </div>

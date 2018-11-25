@@ -13,6 +13,8 @@
 
 <!-- jQuery 3 -->
 <script src="<?=base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="<?=base_url()?>assets/bower_components/jquery-ui/usethis/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?=base_url()?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -55,6 +57,19 @@ baseurl = "<?=base_url()?>";
   $(function () {
     $('.section-belum').hide();
     $('.section-pernah').hide();
+
+    //autocomplete
+    let datamhs = [];
+
+    <?php
+    foreach ($mhs as $key => $value) {
+    ?>
+      datamhs.push("<?=$value['nama']?>");
+    <?php } ?>
+
+    $('#namaMhs').autocomplete({
+      source: datamhs
+    })
   });
 
   $(document).on('click', '#btn-pernah', function(e){
@@ -77,7 +92,36 @@ baseurl = "<?=base_url()?>";
     $('.section-pernah').hide();
   });
 
+// GET PRODI
 
+function getProdi()
+{
+    nama = $('#namaMhs').val();
+    
+    $.ajax({
+      method: "post",
+      url: baseurl+"ajax/getprodi",
+      dataType: 'json',
+      data: {nama: nama},
+      success: function(res){
+        if (res == 0) {
+          $('#prodiMhs').val('DATA ALUMNI TIDAK ADA DI DATABASE');
+          $('#addAlumni').prop('disabled', true);
+        } else {
+          if (res[0]['kd_prodi'] == '55201') {
+            $('#prodiMhs').val('TEKNIK INFORMATIKA');
+          } else if (res[0]['kd_prodi'] == '22201') {
+            $('#prodiMhs').val('TEKNIK SIPIL');
+          } else if (res[0]['kd_prodi'] == '26201') {
+            $('#prodiMhs').val('TEKNIK INDUSTRI');
+          } 
+
+          $('#addAlumni').prop('disabled', false);
+        }
+        
+      }
+    });
+}
 </script>
 </body>
 </html>
