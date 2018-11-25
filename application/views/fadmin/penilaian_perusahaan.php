@@ -61,7 +61,45 @@ $no = 1;
 <br/><br/>
 
 
+<div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title"><a href="#" class="" data-widget="collapse">Data Penilaian Pengguna Lulusan</a></h3>
 
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body">
+              <p>Jumlah total penilaian sebanyak <?=$responden?> penilaian dari <?=count($jumlah)?> perusahan.</p>
+              <hr/>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Jumlah Penilaian</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                    <?php
+                        $no = 1;
+                        foreach ($jumlah as $key => $value) {
+                    ?>
+                    <tr>
+                        <td><?=$no++?></td>
+                        <td><?=$value['nama_perusahaan']?></td>
+                        <td><?=$value['jumlah']?></td>
+                    </tr>
+                        <?php } ?>
+                        </tbody>
+                        </table>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
 
 <div class="box box-primary">
