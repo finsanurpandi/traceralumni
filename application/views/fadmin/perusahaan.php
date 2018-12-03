@@ -143,7 +143,7 @@ foreach ($perusahaan as $key => $value) {
           </div>
           <div class="form-group">
             <label>Bidang Usaha</label>
-            <input type="text" name="bidang_usaha" class="form-control" required/>
+            <input type="text" name="bidang_usaha" class="form-control" id="bidangUsahaPengguna" required/>
           </div>
           <div class="form-group">
             <label>Email Perusahaan</label>

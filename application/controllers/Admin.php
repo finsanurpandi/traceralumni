@@ -277,6 +277,8 @@ class Admin extends CI_Controller {
 
         $perusahaan = $this->m_feedback->getAllData('ace_perusahaan', array('status' => '1', 'kd_prodi' => $this->session->kdprodi))->result_array();
         $data['perusahaan'] = $perusahaan;
+        $busaha = $this->m_feedback->getDistinctData('ace_perusahaan', 'bidang_usaha')->result_array();
+        $data['busaha'] = $busaha;
         $this->load_view('fadmin/perusahaan', $data);
 
         // ADD PERUSAHAAN

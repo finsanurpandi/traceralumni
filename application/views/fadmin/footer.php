@@ -13,6 +13,8 @@
 
 <!-- jQuery 3 -->
 <script src="<?=base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="<?=base_url()?>assets/bower_components/jquery-ui/usethis/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?=base_url()?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -94,6 +96,19 @@ function getMatkul(){
               "<'row'<'col-sm-5'i><'col-sm-7'<'pull-right'p>>>",
     });
 
+    // autocomplete
+    var busaha = [];
+
+    <?php
+    foreach ($busaha as $key => $value) {
+    ?>
+        busaha.push("<?=$value['bidang_usaha']?>");
+    <?php } ?>
+
+    $('#bidangUsahaPengguna').autocomplete({
+      source: busaha,
+      appendTo: '#modalAddPerusahaan'
+    });
     
 
   });
@@ -167,7 +182,6 @@ $(document).on('click', '#btnEditPerusahaan', function(e){
     e.preventDefault();
 
     let data = $(this).data();
-    console.log(data);
     $.ajax({
       method: 'post',
       url: baseurl+'ajax/getPerusahaan',
@@ -188,6 +202,8 @@ $(document).on('click', '#btnEditPerusahaan', function(e){
       }
     });
 });
+
+
 
 function getMonth(data)
 {
