@@ -53,6 +53,17 @@
       <?php
         }
       ?>
+
+      <?php
+        if (@$this->session->flashdata('register') == true) {
+      ?>
+      <small class="text-danger">
+        Anda sudah pernah melakukan registrasi. Silahkan login!
+      </small>
+
+      <?php
+        }
+      ?>
 <br/>
       <div class="row">
         <div class="col-xs-8">

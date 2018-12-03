@@ -49,14 +49,12 @@ class Admin extends CI_Controller {
     {
         $data['user'] = $this->user[0];
         $alumni = $this->m_feedback->getAllData('ace_data_alumni',array('kd_prodi' => $this->session->kdprodi))->result_array();
-        $totalAlumni = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Lulus');
-        $totalAktif = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'AKTIF');
-        $totalMundur = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Mengundurkan diri');
+        $totalAlumni = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Peserta didik baru');
+        $alumniPindahan = $this->m_feedback->getTotalAlumni($this->session->kdprodi, 'Pindahan');
         
         $data['alumni'] = $alumni;
         $data['total'] = $totalAlumni;
-        $data['aktif'] = $totalAktif;
-        $data['mundur'] = $totalMundur;
+        $data['pindahan'] = $alumniPindahan;
 
         $this->load_view('fadmin/alumni', $data);
     }
@@ -380,7 +378,7 @@ class Admin extends CI_Controller {
         $this->load_view('fadmin/rekap_perusahaan', $data);
     }
 
-    function penilaian_alumni()
+    function penilaian_alumni1()
     {
         $data['user'] = $this->user[0];
 
@@ -423,6 +421,27 @@ class Admin extends CI_Controller {
         $data['belumbekerja'] = round((count($belumbekerja)/count($alumni))*100,2);
         $data['tidakbekerja'] = round((count($tidakbekerja)/count($alumni))*100,2);
         $data['sesuaibidang'] = round((count($kesesuaian)/count($bekerja))*100,2);
+        $this->load_view('fadmin/penilaian_alumni', $data);
+    }
+
+    function penilaian_alumni()
+    {
+        $data['user'] = $this->user[0];
+        $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $data['prodi'] = $prodi;
+
+        // get all data alumni
+        $jmlalumni = $this->m_feedback->getJmlAlumni($this->session->kdprodi); // get jumlah alumni
+        $totalAlumni = $this->m_feedback->getAllData('ace_data_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $totalTracer = $this->m_feedback->getAllData('v_tracer_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $totalTracerAngkatan = $this->m_feedback->getJumlahTracerAngkatan($this->session->kdprodi);
+        $statusAlumni = $this->m_feedback->getStatusAlumni($this->session->kdprodi);
+
+        $data['jmlalumni'] = $jmlalumni;
+        $data['totalAlumni'] = $totalAlumni;
+        $data['totalTracer'] = $totalTracer;
+        $data['totalTracerAngkatan'] = $totalTracerAngkatan;
+        $data['statusAlumni'] = $statusAlumni;
         $this->load_view('fadmin/penilaian_alumni', $data);
     }
 

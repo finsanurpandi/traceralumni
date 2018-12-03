@@ -31,7 +31,7 @@
           <div class="col-md-4 col-xs-12"> <!-- col-md and col-xs -->
           <form method="post">
                 <div class="form-group">
-                    <label>Nama Lengkap</label>
+                    <label>Nama Lengkap Alumni</label>
                     <input type="text" class="form-control input-sm" name="nama" id="namaMhs" required onchange="getProdi()"/>
                 </div>
                 <div class="form-group">

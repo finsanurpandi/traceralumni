@@ -104,6 +104,7 @@ function getProdi()
       dataType: 'json',
       data: {nama: nama},
       success: function(res){
+        console.log(res);
         if (res == 0) {
           $('#prodiMhs').val('DATA ALUMNI TIDAK ADA DI DATABASE');
           $('#addAlumni').prop('disabled', true);

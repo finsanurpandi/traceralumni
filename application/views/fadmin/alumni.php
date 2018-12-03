@@ -26,13 +26,13 @@
 <!-- conternt here -->
 <div class="row">
     <!-- LULUS -->
-<div class="col-md-4">
-    <div class="callout callout-success"><h5>Jumlah Total Lulusan Per-angkatan</h5></div>
+<div class="col-md-6">
+    <div class="callout callout-success"><h5>Jumlah Total Mahasiswa Peserta Didik Baru</h5></div>
     <hr/>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Angkatan</th>
+            <th>Tahun Akademik</th>
             <th>Total</th>
         </tr>
     </thead>
@@ -41,7 +41,7 @@
 foreach ($total as $key => $value) {
 ?>
         <tr>
-            <td><?=$value['angkatan']?></td>
+            <td><?=$value['thn_akademik']?></td>
             <td><?=$value['Total']?></td>
         </tr>
 <?php } ?>
@@ -50,22 +50,22 @@ foreach ($total as $key => $value) {
 </div>
 
  <!-- Mengundurkan Diri -->
- <div class="col-md-4">
- <div class="callout callout-warning"><h5>Jumlah Total Mahasiswa Aktif Per-angkatan</h5></div>
+ <div class="col-md-6">
+ <div class="callout callout-warning"><h5>Jumlah Total Mahasiswa Pindahan</h5></div>
     <hr/>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Angkatan</th>
+            <th>Tahun Akademik</th>
             <th>Total</th>
         </tr>
     </thead>
     <tbody>
 <?php
-foreach ($aktif as $key => $value) {
+foreach ($pindahan as $key => $value) {
 ?>
         <tr>
-            <td><?=$value['angkatan']?></td>
+            <td><?=$value['thn_akademik']?></td>
             <td><?=$value['Total']?></td>
         </tr>
 <?php } ?>
@@ -73,31 +73,7 @@ foreach ($aktif as $key => $value) {
 </table>
 </div>
 
- <!-- LULUS -->
- <div class="col-md-4">
-    <div class="callout callout-danger"><h5>Jumlah Total Mahasiswa Mengundurkan Diri Per-angkatan</h5></div>
-    <hr/>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Angkatan</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-<?php
-foreach ($mundur as $key => $value) {
-?>
-        <tr>
-            <td><?=$value['angkatan']?></td>
-            <td><?=$value['Total']?></td>
-        </tr>
-<?php } ?>
-    </tbody>
-</table>
 </div>
-</div>
-
 <hr/>
 
 
@@ -146,10 +122,10 @@ foreach ($mundur as $key => $value) {
         <th>NPM</th>
         <th>Nama Mahasiswa</th>
         <th>Angkatan</th>
-        <th>Status</th>
-        <th>Jenis</th>
+        <th>Keterangan</th>
         <th>Jenis Kelamin</th>
-        <th>Tempat Tanggal Lahir</th>
+        <th>Tanggal Keluar</th>
+        <th>IPK</th>
     </tr>
 </thead>
 <tbody>
@@ -163,20 +139,10 @@ foreach ($alumni as $key => $value) {
       <td><?=$value['npm']?></td>
       <td><?=$value['nama']?></td>
       <td><?=$value['angkatan']?></td>
-      <td>
-        <?php
-        if ($value['status'] == 'Lulus') {
-            echo "<div class='label label-success'>Lulus</div>";
-        } elseif ($value['status'] == 'Mengundurkan diri') {
-            echo "<div class='label label-danger'>Mengundurkan diri</div>";
-        } elseif ($value['status'] == 'AKTIF') {
-            echo "<div class='label label-warning'>Aktif</div>";
-        }
-        ?>
-      </td>
-      <td><?=$value['jenis']?></td>
+      <td><?=$value['keterangan']?></td>
       <td><?=$value['jk']?></td>
-      <td><?=$value['ttl']?></td>
+      <td><?=$value['tgl_keluar']?></td>
+      <td><?=$value['ipk']?></td>
 </tr>
 <?php 
             

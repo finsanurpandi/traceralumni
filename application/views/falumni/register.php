@@ -16,6 +16,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- ICON -->
+  <link rel="icon" href="<?=base_url()?>assets/img/ico_ft.png" type="image/x-icon" />
   <title>Alumni Registration Form</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -87,7 +89,7 @@
         <label>No Telepon</label>
         <input type="number" name="no_tlp" class="form-control" placeholder="No Telepon yang bisa dihubungi" required>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xs-12 col-md-6">
             <label>Bulan Lulus</label>
             <select name="bln_lulus" class="form-control" required>
@@ -105,15 +107,15 @@
                 <option value="11">November</option>
                 <option value="12">Desember</option>
             </select>
-        </div>
+        </div> -->
         <!-- /.col -->
-        <div class="col-xs-12 col-md-6">
+        <!-- <div class="col-xs-12 col-md-6">
             <label>Tahun</label>
             <input type="year" name="thn_lulus" class="form-control" placeholder="20XX" required>
-        </div>
+        </div> -->
         <!-- /.col -->
-      </div>
-      <br/>
+      <!-- </div> -->
+      <!-- <br/> -->
       <div class="form-group">
         <label>Status Sekarang?</label>
         <select class="form-control" name="kd_status">

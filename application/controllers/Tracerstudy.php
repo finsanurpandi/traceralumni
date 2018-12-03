@@ -61,10 +61,16 @@ class Tracerstudy extends CI_Controller {
         if (isset($verifikasi)) {
 
             $mhsnum = $this->m_feedback->getNumRows('ace_data_alumni', array('npm' => $this->input->post('npm')));
+            $mhsregnum = $this->m_feedback->getNumRows('ace_alumni', array('npm' => $this->input->post('npm')));
 
             if ($mhsnum == 1) {
-                $this->session->set_userdata('npm', $this->input->post('npm'));
-                redirect("tracerstudy/register", "refresh");
+                if ($mhsregnum !== 1) {
+                    $this->session->set_userdata('npm', $this->input->post('npm'));
+                    redirect("tracerstudy/register", "refresh");    
+                } else {
+                    $this->session->set_flashdata('register', true);
+                    redirect($this->uri->uri_string());
+                }
             } else {
                 $this->session->set_flashdata('error', true);
                 redirect($this->uri->uri_string());
@@ -130,9 +136,9 @@ class Tracerstudy extends CI_Controller {
                 'alamat' => $this->input->post('alamat'),
                 'email' => $this->input->post('email'),
                 'no_tlp' => $this->input->post('no_tlp'),
-                'bln_lulus' => $this->input->post('bln_lulus'),
-                'thn_lulus' => $this->input->post('thn_lulus'),
-                'tahun_akademik' => $thn_akademik,
+                // 'bln_lulus' => $this->input->post('bln_lulus'),
+                // 'thn_lulus' => $this->input->post('thn_lulus'),
+                // 'tahun_akademik' => $thn_akademik,
                 'status' => $this->input->post('kd_status'),
                 'img' => $pic
             );
@@ -161,6 +167,9 @@ class Tracerstudy extends CI_Controller {
         
         $user = $this->m_feedback->getAllData('ace_alumni', array('npm' => $this->session->npm))->result_array();
         $data['user'] = $user[0];
+        $alumni = $this->m_feedback->getAllData('ace_data_alumni', array('npm' => $this->session->npm))->result_array();
+        $thn_lulus = explode('-', $alumni[0]['tgl_keluar']);
+        $data['thn_lulus'] = $thn_lulus;
 
         $perusahaan = $this->m_feedback->getAllData('ace_detail_alumni')->result_array();
         $status = $this->m_feedback->getAllData('ace_status')->result_array();

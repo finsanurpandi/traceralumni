@@ -38,7 +38,6 @@
 
 <hr/>
 
-<!-- Data jumlah lulusan -->
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Data Lulusan</h3>
@@ -59,16 +58,16 @@
 <?php
 $no = 1;
 $jml = 0;
-    foreach ($jmlalumni as $key => $value) {
+foreach ($jmlalumni as $key => $value) {
 ?>
         <tr>
             <td><?=$no++?></td>
-            <td><?=$value['thn_akademik']?></td>
+            <td><?=$value['tahun_akademik']?></td>
             <td><?=$value['jumlah']?></td>
         </tr>
 <?php 
 $jml += $value['jumlah'];
-    }
+} 
 ?>
     </tbody>
     <tfoot>
@@ -86,127 +85,86 @@ $jml += $value['jumlah'];
     </div>
     </div><!-- /.box-body -->
 </div><!-- /.box -->
-<!-- END OF DATA JUMLAH LULUSAN -->
-
-
-<!-- Data alumni mengisi tracer alumni -->
+<!-- DONUT CHART -->
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">Data Alumni Mengisi Tracer Alumni</h3>
+        <h3 class="box-title">Persentase Status Alumni</h3>
     </div>
     <div class="box-body">
     <div class="row">
     <div class="col-md-6">
-
-    <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Trace Alumni</th>
-            <th>Jumlah</th>
-        <tr>
-    </thead>
-    <tbody>
-    <?php
-    
-    ?>
-        <tr>
-            <td>Mengisi</td>
-            <td><?=count($totalTracer)?></td>
-        </tr>
-        <tr>
-            <td>Tidak Mengisi</td>
-            <td><?=count($totalAlumni)-count($totalTracer)?></td>
-        </tr>
-    </tbody>
-    </table>
+    <table class="table">
+            <thead>
+                <tr class="active">
+                    <th>#</th>
+                    <th>Status</th>
+                    <th>Persentase</th>
+                <tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td>1</td>
+                    <td>Bekerja</td>
+                    <td><?=$bekerja?>%</td>
+                <tr>
+                <tr class="info">
+                    <td>2</td>
+                    <td>Wirausaha</td>
+                    <td><?=$wirausaha?>%</td>
+                <tr>
+                <tr class="warning">
+                    <td>3</td>
+                    <td>Belum Bekerja</td>
+                    <td><?=$belumbekerja?>%</td>
+                <tr>
+                <tr class="danger">
+                    <td>4</td>
+                    <td>Tidak Bekerja/Berkeluarga</td>
+                    <td><?=$tidakbekerja?>%</td>
+                <tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-6">
-    <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Angkatan</th>
-            <th>Jumlah Mengisi</th>
-        <tr>
-    </thead>
-    <tbody>
-    <?php
-        foreach ($totalTracerAngkatan as $key => $value) {
-    ?>
-        <tr>
-            <td><?=$value['angkatan']?></td>
-            <td><?=$value['jumlah']?></td>
-        </tr>
-                <?php } ?>
-    </tbody>
-    </table>
+        <canvas id="pieChart" style="height:250px"></canvas>
     </div>
-    </div>
-
-    <div class="row">
-    <div class="col-md-6">
-        hello, aku adalah pie chart
-    </div>
-
-    <div class="col-md-6">
-        hello, aku adalah pie chart
-    </div>
-
     </div>
     </div><!-- /.box-body -->
 </div><!-- /.box -->
-<!-- END OF DATA ALUMNI MENGISI TRACER -->
 
-<!-- Data Status Alumni -->
+<div class="row">
+<div class="col-md-6">
+<!-- DONUT CHART -->
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">Data Status Alumni</h3>
+        <h3 class="box-title">Rata-Rata Waktu Tunggu</h3>
     </div>
     <div class="box-body">
-    <div class="row">
-    <div class="col-md-6">
-
-    <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Lulusan</th>
-            <th>Persentase</th>
-            <th>Jumlah Alumni</th>
-        <tr>
-    </thead>
-    <tbody>
-    <?php
-        foreach ($statusAlumni as $key => $value) {
-    ?>
-        <tr>
-            <td>
-                <?php
-                    if ($value['status'] == 1) {
-                        echo "Bekerja";
-                    } elseif ($value['status'] == 2) {
-                        echo "Wirausaha";
-                    } elseif ($value['status'] == 3) {
-                        echo "Tidak Bekerja";
-                    }
-                ?>
-            </td>
-            <td><?=round(($value['jumlah']/count($totalTracer))*100,2)?>%</td>
-            <td><?=$value['jumlah']?></td>
-        </tr>
-                <?php } ?>
-    </tbody>
-    </table>
-    </div>
-    <div class="col-md-6">
-        
-    
-    </div>
-    </div>
+        <p class="text-center" style="font-size:80px;font-wight:bold;">
+            <?=$waktutunggu?> Bulan
+        </p>
+        <p class="text-center" style="margin-top:-30px;margin-bottom:30px;">dari total <?=count($alumni)?> alumni yang menanggapi, dengan <?=$jml_bekerja?> alumni yang bekerja</p>
     </div><!-- /.box-body -->
 </div><!-- /.box -->
-<!-- END OF DATA STATUS ALUMNI -->
+</div><!-- col-md-6 -->
 
-
-
+<div class="col-md-6">
+<!-- BAR CHART -->
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Persentase Bekerja Sesuai Bidang</h3>
+    </div>
+    <div class="box-body">
+        <div class="chart">
+        <p class="text-center" style="font-size:80px;font-wight:bold;">
+            <?=$sesuaibidang?>%
+        </p>
+        <p class="text-center" style="margin-top:-30px;margin-bottom:30px;">yang bekerja sesuai bidang</p>
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+</div><!-- col-md-6 -->
+</div> <!-- ROW -->
 
 
 </div>

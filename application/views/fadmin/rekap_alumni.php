@@ -100,6 +100,7 @@
 <?php
     $no = 1;
     foreach ($alumni as $key => $value) {
+      $tgl_keluar = explode('-',$value['tgl_keluar']);
 ?>
                     <tr>
                         <td><?=$no++?></td>
@@ -107,10 +108,10 @@
                         <td><?=$value['nama']?></td>
                         <td><?=$value['email']?></td>
                         <td><?=$value['angkatan']?></td>
-                        <td><?=getMonth($value['bln_lulus']).' - '.$value['thn_lulus']?></td>
+                        <td><?=getMonth($tgl_keluar[1]).' - '.$tgl_keluar[2]?></td>
                         <td><?=getStatus($value['status'])?></td>
                         <td>
-                            <button id="btnDetailAlumni" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalDetail" data-npm="<?=$value['npm']?>" data-nama="<?=$value['nama']?>"><i class="fa fa-search"></i> detail</button>
+                            <button id="btnDetailAlumni" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalDetail" data-npm="<?=$value['npm']?>" data-nama="<?=$value['nama']?>"><i class="fa fa-search"></i> karir</button>
                         </td>
                     </tr>
 <?php } ?>

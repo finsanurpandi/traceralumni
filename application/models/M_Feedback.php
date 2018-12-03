@@ -159,9 +159,16 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
-	function getTotalAlumni($kdprodi, $status)
+	function getTotalAlumni($kdprodi, $keterangan)
 	{
-		$sql = "SELECT angkatan, COUNT(angkatan) AS Total FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' AND status = '".$status."' GROUP BY angkatan";
+		$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS Total FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' AND keterangan = '".$keterangan."' GROUP BY thn_akademik";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getJmlAlumni($kdprodi)
+	{
+		$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS jumlah FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY thn_akademik";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -175,7 +182,8 @@ class M_feedback extends CI_Model {
 
 	function getDataAlumni($kdprodi)
 	{
-		$sql = "SELECT ace_alumni.*, ace_data_alumni.angkatan FROM `ace_alumni` JOIN ace_data_alumni ON ace_alumni.npm = ace_data_alumni.npm WHERE ace_alumni.kd_prodi = '".$kdprodi."'";
+		// $sql = "SELECT ace_alumni.*, ace_data_alumni.angkatan FROM `ace_alumni` JOIN ace_data_alumni ON ace_alumni.npm = ace_data_alumni.npm WHERE ace_alumni.kd_prodi = '".$kdprodi."'";
+		$sql = "SELECT ace_data_alumni.*, ace_alumni.email, ace_alumni.status, ace_alumni.alamat, ace_alumni.no_tlp FROM `ace_alumni` JOIN ace_data_alumni ON ace_alumni.npm = ace_data_alumni.npm WHERE ace_alumni.kd_prodi = '".$kdprodi."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -193,6 +201,22 @@ class M_feedback extends CI_Model {
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+	function getStatusAlumni($kdprodi)
+	{
+		$sql = "SELECT status, count(status) AS jumlah FROM `ace_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY status";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getJumlahTracerAngkatan($kdprodi)
+	{
+		$sql = "SELECT angkatan, count(angkatan) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY angkatan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	
 
 
 // INSERT DATA

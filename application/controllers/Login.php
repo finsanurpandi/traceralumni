@@ -25,6 +25,8 @@ class Login extends CI_Controller {
             redirect('tracerstudy', 'refresh');
         }
 
+        $this->session->unset_userdata('npm');
+
         $rand = rand(1,5);
         $pic = '';
 

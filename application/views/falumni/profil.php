@@ -92,8 +92,8 @@
   <strong style="font-size:18px;">Lulus</strong>
   <p>
     <?php
-    getMonth($user['bln_lulus']);
-    echo " - ".$user['thn_lulus'];
+    getMonth($thn_lulus[1]);
+    echo " - ".$thn_lulus[2];
     ?>
   </p>
   </div>
