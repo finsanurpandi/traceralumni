@@ -60,6 +60,7 @@
   }
 ?> 
 <hr/>
+<div class="table-responsive">
 <table id="tbl-hello" class="table table-hover ui-corner-tr ui-helper-clearfix">
 <thead>
     <tr>
@@ -109,7 +110,7 @@ foreach ($perusahaan as $key => $value) {
     
 </tbody>
 </table>
-
+</div>
 <!-- end content           -->
         </div>
         <!-- /.box-body -->

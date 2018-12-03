@@ -135,32 +135,7 @@ function check_npm()
 
 
 
-// EDIT PERUSAHAAN
-$(document).on('click', '#btnEditPerusahaan', function(e){
-    e.preventDefault();
 
-    let data = $(this).data();
-
-    $.ajax({
-      method: 'post',
-      url: baseurl+'feedbackajax/getPerusahaan',
-      async: true,
-      dataType: 'json',
-      data: {kd_perusahaan:data['perusahaan']},
-      success: function(res){
-        $('#ptEditNama').val(res[0]['nama_perusahaan']);
-        $('#ptEditAlamat').val(res[0]['alamat']);
-        $('#ptEditBidangUsaha').val(res[0]['bidang_usaha']);
-        $('#ptEditEmail').val(res[0]['email']);
-        $('#ptEditKode').val(res[0]['kd_perusahaan']);
-
-        // $('#baaEditMatkulSks option').filter(function(){
-        //   return ($(this).val() == res[0]['sks']);
-        // }).prop('selected', true);
-
-      }
-    });
-});
 
 // EDIT ALUMNI
 $(document).on('click', '#btnEditAlumni', function(e){
@@ -170,7 +145,7 @@ $(document).on('click', '#btnEditAlumni', function(e){
 
     $.ajax({
       method: 'post',
-      url: baseurl+'feedbackajax/getAlumni',
+      url: baseurl+'ajax/getAlumni',
       async: true,
       dataType: 'json',
       data: {npm:data['npm']},

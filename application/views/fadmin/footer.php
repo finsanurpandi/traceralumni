@@ -162,6 +162,33 @@ $(document).on('click', '#btn-perusahaan-alumni', function(e){
   });
 });
 
+// EDIT PERUSAHAAN
+$(document).on('click', '#btnEditPerusahaan', function(e){
+    e.preventDefault();
+
+    let data = $(this).data();
+    console.log(data);
+    $.ajax({
+      method: 'post',
+      url: baseurl+'ajax/getPerusahaan',
+      async: true,
+      dataType: 'json',
+      data: {kd_perusahaan:data['perusahaan']},
+      success: function(res){
+        $('#ptEditNama').val(res[0]['nama_perusahaan']);
+        $('#ptEditAlamat').val(res[0]['alamat']);
+        $('#ptEditBidangUsaha').val(res[0]['bidang_usaha']);
+        $('#ptEditEmail').val(res[0]['email']);
+        $('#ptEditKode').val(res[0]['kd_perusahaan']);
+
+        // $('#baaEditMatkulSks option').filter(function(){
+        //   return ($(this).val() == res[0]['sks']);
+        // }).prop('selected', true);
+
+      }
+    });
+});
+
 function getMonth(data)
 {
   var bulan = '';
