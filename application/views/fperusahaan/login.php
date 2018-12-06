@@ -6,6 +6,8 @@
   <title>Feedback Pengguna Alumni</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- ICON -->
+  <link rel="icon" href="<?=base_url()?>assets/img/ico_ft.png" type="image/x-icon" />
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
