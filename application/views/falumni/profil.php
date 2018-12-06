@@ -77,8 +77,11 @@
     echo "<p class='text-center'>".$karir[0]['posisi']." at ".$karir[0]['nama_perusahaan']."</p>";
   }
   ?>
-  <hr/>
+  <br/>
   <div class="text-center">
+  <button type="button" id="btn-edit-pass" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalEditPassword">Change Password</button>
+  <hr/>
+  
   <button id="btn-edit-karir" type="button" class="close" data-toggle="modal" data-target="#modalEditProfil" data-npm="<?=$this->session->npm?>" aria-label="Close"><i class="fa fa-pencil"></i></button>
   <strong style="font-size:18px;">Alamat</strong>
   <p><?=$user['alamat']?></p>
@@ -102,6 +105,28 @@
 </div>
 
 <div class="col-md-9"> <!--COL MD 9-->
+<?php
+  if (@$this->session->flashdata('success') == true) {
+?>
+    <div class="alert alert-success">Password berhasil diganti.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+<?php
+  } elseif (@$this->session->flashdata('failed') == true) {
+?>
+
+    <div class="alert alert-danger">Password lama atau ulangi password salah!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+<?php
+  }
+?>
           <!-- <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#modalAddKarir"><i class="fa fa-plus"></i> Tambah</button> -->
           <button style="margin-right:20px;margin-top:5px;" type="button" class="close" data-toggle="modal" data-target="#modalAddKarir" aria-label="Close"><i class="fa fa-plus"></i></button>
           <br/>
@@ -180,7 +205,7 @@ foreach ($karir as $key => $value) {
             </div>
             <div class="form-group">
                 <label>Email Perusahaan</label>
-                <input type="text" name="email_pt" class="form-control" required/>
+                <input type="text" name="email_pt" class="form-control"/>
             </div>
             <label>Lama bekerja</label>
 
@@ -420,6 +445,44 @@ foreach ($karir as $key => $value) {
       <div class="modal-footer">
         <input type="reset" class="btn btn-default btn-xs" data-dismiss="modal" value="Close">
         <input type="submit" class="btn btn-success btn-xs" name="editPicture" value="Upload"/>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- EDIT MODAL PASSWORD-->
+<div class="modal fade modal-success-custom" tabindex="-1" role="dialog" id="modalEditPassword">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Ganti Password</h4>
+      </div>
+
+      <div class="modal-body">
+        <form method="post">
+            <div class="form-group">
+                <label>Password Lama</label>
+                <input type="password" name="pass" class="form-control" id="editPassLama" onchange="getPassword();" required/>
+                <span id="helpBlock" class="help-block"></span>
+            </div>
+            <div class="form-group">
+                <label>Password Baru</label>
+                <input type="password" name="newPass" class="form-control" id="editPassBaru" required/>
+            </div>
+            <div class="form-group">
+                <label>Konfirmasi Password Baru</label>
+                <input type="password" name="confPass" class="form-control" id="editKonfPass" required/>
+                <input type="hidden" name="npm" value="<?=$user['npm']?>"/>
+                <span id="helpBlock2" class="help-block"></span>
+            </div>
+      </div>
+            
+
+      <div class="modal-footer">
+        <input type="reset" class="btn btn-default btn-xs" data-dismiss="modal" value="Tutup">
+        <input type="submit" class="btn btn-success btn-xs" name="submit-pass" value="Ganti Password" id="btnGantiPass"/>
         </form>
       </div>
     </div><!-- /.modal-content -->

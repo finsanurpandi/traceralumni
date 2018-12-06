@@ -1,6 +1,7 @@
 <?php
     // $nilai = array(1,2,3,4,5);
-    $nilai = array(1 => "Kurang",2 => "Cukup",3 => "Baik",4 => "Sangat Baik");
+    // $nilai = array(1 => "Kurang",2 => "Cukup",3 => "Baik",4 => "Sangat Baik");
+    $nilai = array(4 => "Sangat Baik", 3 => "Baik", 2 => "Cukup", 1 => "Kurang");
   ?>
   <!-- =============================================== -->
 

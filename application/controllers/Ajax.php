@@ -89,4 +89,15 @@ class Ajax extends CI_Controller {
         echo json_encode($data);
     }
 
+    function getPassword()
+    {
+        $npm = $this->input->post('npm');
+        $pass = sha1($this->input->post('pass'));
+
+        $data = $this->m_feedback->getAllData('ace_alumni', array('npm' => $npm))->result_array();
+        $data[0]['type_pass'] = $pass;
+
+        echo json_encode($data);
+    }
+
 }

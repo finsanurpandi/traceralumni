@@ -308,6 +308,33 @@ class Tracerstudy extends CI_Controller {
 
         }
 
+        // ganti password
+        $gantipass = $this->input->post('submit-pass');
+        if (isset($gantipass)) {
+            $pass = sha1($this->input->post('pass'));
+            $newpass = $this->input->post('newPass');
+            $conpass = $this->input->post('conPass');
+            $npm = $this->input->post('npm');
+
+            $user = $this->m_feedback->getAllData('ace_alumni', array('npm' => $npm))->result_array();
+
+            // print_r($user[0]);
+            // print($pass);
+
+            if ($user[0]['pass'] !== $pass) {
+                $this->session->set_flashdata('failed', true);
+                redirect($this->uri->uri_string());
+            } else {
+                // print('TRUE');
+                $data = array('pass' => sha1($newpass));
+                $where = array('npm' => $npm);
+
+                $this->m_feedback->updateData('ace_alumni', $data, $where);
+                $this->session->set_flashdata('success', true);
+                redirect($this->uri->uri_string());
+            }
+        }
+
     }
 
 

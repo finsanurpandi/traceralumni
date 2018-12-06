@@ -53,7 +53,8 @@
 
 <script>
 baseurl = "<?=base_url()?>";
-function getMatkul(){
+
+  function getMatkul(){
     var kdprodi = $('#kdprodi').val();
     var matkul = $('#matkul');
     
@@ -95,23 +96,11 @@ function getMatkul(){
               "<'row'<'col-sm-12'tr>>" +
               "<'row'<'col-sm-5'i><'col-sm-7'<'pull-right'p>>>",
     });
-
-    // autocomplete
-    var busaha = [];
-
-    <?php
-    foreach ($busaha as $key => $value) {
-    ?>
-        busaha.push("<?=$value['bidang_usaha']?>");
-    <?php } ?>
-
-    $('#bidangUsahaPengguna').autocomplete({
-      source: busaha,
-      appendTo: '#modalAddPerusahaan'
-    });
+    
     
 
   });
+
 
 // DETAIL HISTORI ALUMNI
 $(document).on('click', '#btnDetailAlumni', function(e){

@@ -77,6 +77,7 @@ $(function(){
   });
 
   //$( "#addPerusahaan" ).autocomplete( "option", "appendTo", ".eventInsForm" );
+  
 });
 
 function AlumniClearMenu(){
@@ -194,6 +195,42 @@ if ($('#editStillWorks').is(':checked')) {
     $('#editThnSelesai').prop('disabled', false);
 }
 });
+
+//check password
+function getPassword()
+{
+  let pass = $('#editPassLama').val();
+  let npm = "<?=$this->session->npm?>";
+
+  $.ajax({
+    method: "post",
+    url: baseurl+"ajax/getPassword",
+    dataType: 'json',
+    data: {npm:npm, pass:pass},
+    success: function(res){
+      if (res[0]['pass'] == res[0]['type_pass']) {
+        $('#helpBlock').hide();
+      } else {
+        $('#helpBlock').show();
+        $('#helpBlock').text('Password yang anda masukan salah!');
+      }
+    }
+  })
+}
+
+$(document).on('keyup', '#editKonfPass', function(e){
+  let passBaru = $('#editPassBaru').val();
+  let konfBaru = $(this).val();
+
+  if (passBaru == konfBaru) {
+    $('#helpBlock2').hide();
+    $('#btnGantiPass').prop('disabled', false);
+  } else {
+    $('#helpBlock2').show();
+    $('#helpBlock2').text('Password yang anda masukan berbeda!');
+    $('#btnGantiPass').prop('disabled', true);
+  }
+})
 
 </script>
 </body>
