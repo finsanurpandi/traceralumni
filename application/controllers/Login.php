@@ -7,6 +7,7 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('m_basic');
+        $this->load->helper('download');
 		
 		date_default_timezone_set("Asia/Bangkok");
     }
@@ -217,5 +218,11 @@ class Login extends CI_Controller {
             redirect('login/prodi', 'refresh');
         }
 		
+    }
+
+    function download($file)
+    {
+        $file = $this->encrypt->decode($file);
+        force_download($file, 'Manual Book Tracer Alumni');
     }
 }

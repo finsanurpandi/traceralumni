@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Tracer</b>Study</a>
+    <a href="#"><b>Tracer</b>Alumni</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -69,11 +69,15 @@
         <!-- /.col -->
       </div>
     </form>
-
   </div>
   <!-- /.login-box-body -->
+  <div class="text-center">
+  
+    <a href="<?=base_url()?>download/file/<?=$this->encrypt->encode('Manual_Book_Tracer_Alumni_for_Alumni.pdf')?>" class="btn btn-link" target="_blank"><img src="<?=base_url()?>assets/img/pdf_logo.png" width="30px"/> Download Manual Book</a>
+  </div>
 </div>
 <!-- /.login-box -->
+
 
 <!-- jQuery 3 -->
 <script src="<?=base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>

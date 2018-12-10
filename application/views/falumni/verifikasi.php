@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Login Alumni</title>
+  <title>Verifikasi NPM Alumni</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- ICON -->
@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Tracer</b>Study</a>
+    <a href="#"><b>Tracer</b>Alumni</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
