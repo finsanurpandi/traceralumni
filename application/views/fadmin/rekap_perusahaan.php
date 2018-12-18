@@ -1,4 +1,21 @@
+<?php
+function check_akun($akun, $perusahaan){
+  $company = $perusahaan;
 
+  foreach ($akun as $key => $value) {
+    $perusahaan = strtolower($perusahaan);
+    $isPerusahaan = strtolower($value['nama_perusahaan']);
+    
+    $doFind = array('pt.', 'pt. ', 'pt ');
+    $perusahaan = str_replace($doFind, '', $perusahaan);
+    $isPerusahaan = str_replace($doFind, '', $isPerusahaan);
+
+    if ($perusahaan == ltrim($isPerusahaan)) {
+      return "1";
+    }
+  }
+}
+?>
   <!-- =============================================== -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -55,10 +72,28 @@
                         <td>
                             <?="<button type='button' id='btn-perusahaan-alumni' class='btn btn-info btn-xs' data-target='#modalDetail' data-toggle='modal' data-pengguna='".$value['nama_perusahaan']."' data-kdprodi='".$value['kd_prodi']."'>".$value['jml_mhs']." Mahasiswa</button>"?></td>
                         <td>
-                            <button type="button" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> buat akun</button>
+                        <?php
+                        $isCheck = check_akun($hasAccount, $value['nama_perusahaan']);
+
+                          if ($isCheck == '1') {
+                            echo "<div class='label label-info'>Akun sudah ada</div>";
+                          } else {
+                        ?>
+                        <form method="post">
+                            <input type="hidden" name="nama_perusahaan" value="<?=$value['nama_perusahaan']?>"/>
+                            <input type="hidden" name="bidang_usaha" value="<?=$value['bidang_usaha']?>"/>
+                            <input type="hidden" name="alamat" value="<?=$value['lokasi']?>"/>
+                            <input type="hidden" name="email" value="<?=$value['email']?>"/>
+                            <input type="submit" name="createAccount" value="Buat Akun" class="btn btn-success btn-xs"/>
+                        </form>
+                            
+                          <?php } ?>
                         </td>
                     </tr>
-<?php } ?>
+<?php 
+
+} 
+?>
                 </tbody>
             </table>
         </div>
@@ -98,6 +133,26 @@
 
             </tbody>
         </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Buat Akun-->
+<div class="modal fade" id="modalBuatAkun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Buat Akun Feedback Pengguna</h4>
+      </div>
+      <div class="modal-body">
+        <div class="isi-detail">
+          
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Tutup</button>

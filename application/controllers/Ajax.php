@@ -38,6 +38,18 @@ class Ajax extends CI_Controller {
         echo json_encode($data);
     }
 
+    // function getDataPerusahaan()
+    // {
+    //     $perusahaan = $this->input->post('perusahaan');
+    //     $perusahaan = strtolower($perusahaan);
+
+    //     $doFind = array('pt.', 'pt. ', 'pt ');
+    //     $isCompany = str_replace($doFind, '', $perusahaan);
+
+    //     $data = $this->m_feedback->getDataLike('ace_perusahaan', array('nama_perusahaan' => $isCompany))->result_array();
+    //     echo json_encode($data);
+    // }
+
     function getAlumni()
     {
         $npm = $this->input->post('npm');

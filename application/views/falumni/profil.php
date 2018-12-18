@@ -213,7 +213,7 @@ foreach ($karir as $key => $value) {
                 <div class="form-group col-md-6">
                     <label>Dari</label>
                     <select name="bulan_bekerja" class="form-control" id="bln_bekerja">
-                        <option></option>
+                        <option>Bulan</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
@@ -231,7 +231,7 @@ foreach ($karir as $key => $value) {
                 <div class="form-group col-md-6">
                     <label>Sampai</label>
                     <select name="bulan_selesai" class="form-control" id="bln_selesai">
-                        <option></option>
+                        <option>Bulan</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
@@ -250,10 +250,10 @@ foreach ($karir as $key => $value) {
             <div class="row">
                 
                 <div class="form-group col-md-6">
-                    <input type="year" name="tahun_bekerja" class="form-control" id="thn_bekerja"/>
+                    <input type="year" name="tahun_bekerja" class="form-control" id="thn_bekerja" placeholder="Tahun"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="year" name="tahun_selesai" class="form-control" id="thn_selesai"/>
+                    <input type="year" name="tahun_selesai" class="form-control" id="thn_selesai" placeholder="Tahun"/>
                 </div>
                 
             </div>

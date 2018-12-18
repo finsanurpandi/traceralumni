@@ -50,6 +50,17 @@ class M_feedback extends CI_Model {
 		return $query;
 	}
 
+	function getDataLike($table, $like)
+	{
+		foreach ($like as $key => $value) {
+			$this->db->like($key, $value);
+		}
+
+		$query = $this->db->get($table);
+
+		return $query;
+	}
+
 	function getNumRows($table, $where = null)
 	{
 		if ($where !== null) {

@@ -376,8 +376,25 @@ class Admin extends CI_Controller {
     {
         $data['user'] = $this->user[0];
         $perusahaan = $this->m_feedback->getPenggunaLulusan($this->session->kdprodi);
+        $hasAccount = $this->m_feedback->getAllData('ace_perusahaan')->result_array();
         $data['perusahaan'] = $perusahaan;
+        $data['hasAccount'] = $hasAccount;
         $this->load_view('fadmin/rekap_perusahaan', $data);
+
+        $createAccount = $this->input->post('createAccount');
+        if (isset($createAccount)) {
+            $data = array(
+                'nama_perusahaan' => $this->input->post('nama_perusahaan'),
+                'alamat' => $this->input->post('alamat'),
+                'bidang_usaha' => $this->input->post('bidang_usaha'),
+                'email' => $this->input->post('email'),
+                'kd_prodi' => $this->session->kdprodi
+            );
+
+            $this->m_feedback->insertData('ace_perusahaan', $data);
+
+            redirect($this->uri->uri_string());
+        }
     }
 
     function penilaian_alumni1()
