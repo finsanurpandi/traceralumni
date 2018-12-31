@@ -185,7 +185,9 @@ $jml += $value['jumlah'];
                     } elseif ($value['status'] == 2) {
                         echo "Wirausaha";
                     } elseif ($value['status'] == 3) {
-                        echo "Tidak Bekerja";
+                        echo "Belum Bekerja";
+                    } elseif ($value['status'] == 4) {
+                        echo "Tidak Bekerja/Berkeluarga";
                     }
                 ?>
             </td>

@@ -74,6 +74,12 @@
           <i class="fa fa-th"></i> <span>Cetak Laporan</span>
         </a>
       </li>
+      </li>
+        <li id="prodiUbahPass">
+        <a href="<?=base_url()?>admin/ubah_password">
+          <i class="fa fa-th"></i> <span>Ubah Password</span>
+        </a>
+      </li>
       <li>
         <a href="#" data-toggle="modal" data-target="#logoutModal">
           <i class="fa fa-th"></i> <span>Logout</span>

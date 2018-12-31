@@ -513,6 +513,32 @@ class Admin extends CI_Controller {
         $this->load_view('fadmin/penilaian_perusahaan', $data);
     }
 
+    function ubah_password()
+    {
+        $user = $this->m_feedback->getAllData('ace_login', array('username' => $this->session->user))->result_array();
+        $data['user'] = $user[0];
+        $this->load_view('fadmin/ubah_password', $data);
+
+        $ubahpass = $this->input->post('ubahpass');
+        if (isset($ubahpass)) {
+            $pass = $this->input->post('pass');
+            $npass = $this->input->post('npass');
+            $cpass = $this->input->post('cpass');
+
+            if (sha1($pass) !== $user[0]['password']) {
+                $this->session->set_flashdata('wrongpass', true);
+                redirect($this->uri->uri_string());
+            } elseif ($npass !== $cpass) {
+                $this->session->set_flashdata('wrongconfirm', true);
+                redirect($this->uri->uri_string());
+            } else {
+                $this->m_feedback->updateData('ace_login', array('password' => sha1($npass)), array('username' => $this->session->user));
+                $this->session->set_flashdata('success', true);
+                redirect($this->uri->uri_string());
+            }
+        }
+    }
+
     function cetak()
     {
 
