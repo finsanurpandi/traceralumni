@@ -69,11 +69,11 @@
             <li id="prodiPenilaianPerusahaan"><a href="<?=base_url()?>admin/penilaian_perusahaan"><i class="fa fa-circle-o"></i> Pengguna Lulusan</a></li>
           </ul>
         </li>
-        <li id="prodiKinerja">
+        <!-- <li id="prodiKinerja">
         <a href="<?=base_url()?>feedbackadmin/cetak">
           <i class="fa fa-th"></i> <span>Cetak Laporan</span>
         </a>
-      </li>
+      </li> -->
       </li>
         <li id="prodiUbahPass">
         <a href="<?=base_url()?>admin/ubah_password">

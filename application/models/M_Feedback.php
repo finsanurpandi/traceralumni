@@ -177,9 +177,15 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
-	function getJmlAlumni($kdprodi)
+	function getJmlAlumni($kdprodi, $from = null, $until = null)
 	{
-		$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS jumlah FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY thn_akademik";
+		if ($from !== null && $until !== null) {
+			$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS jumlah FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' AND thn_akademik BETWEEN '".$from."' AND '".$until."' GROUP BY thn_akademik";
+		} else {
+			$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS jumlah FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY thn_akademik";
+		}
+		
+		//$sql = "SELECT thn_akademik, COUNT(thn_akademik) AS jumlah FROM `ace_data_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY thn_akademik";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -213,16 +219,33 @@ class M_feedback extends CI_Model {
 		return $query->result_array();
 	}
 
-	function getStatusAlumni($kdprodi)
+	function getStatusAlumni($kdprodi, $from = null, $until = null)
 	{
-		$sql = "SELECT status, count(status) AS jumlah FROM `ace_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY status";
+		if ($from !== null && $until !== null) {
+			$sql = "SELECT status, count(status) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' AND `thn_akademik` BETWEEN '".$from."' AND '".$until."' GROUP BY status";
+		} else {
+			$sql = "SELECT status, count(status) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY status";
+		}
+		// $sql = "SELECT status, count(status) AS jumlah FROM `ace_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY status";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 
-	function getJumlahTracerAngkatan($kdprodi)
+	function getJumlahTracerAngkatan($kdprodi, $from = null, $until = null)
 	{
-		$sql = "SELECT angkatan, count(angkatan) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY angkatan";
+		if ($from !== null && $until !== null) {
+			$sql = "SELECT angkatan, count(angkatan) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' AND `thn_akademik` BETWEEN '".$from."' AND '".$until."' GROUP BY angkatan";
+		} else {
+			$sql = "SELECT angkatan, count(angkatan) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY angkatan";
+		}
+		// $sql = "SELECT angkatan, count(angkatan) AS jumlah FROM `v_tracer_alumni` WHERE kd_prodi = '".$kdprodi."' GROUP BY angkatan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function getFilterDataAlumni($table, $kdprodi, $from, $until)
+	{
+		$sql = "SELECT * FROM `".$table."` WHERE `kd_prodi` = '".$kdprodi."' AND `thn_akademik` BETWEEN '".$from."' AND '".$until."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

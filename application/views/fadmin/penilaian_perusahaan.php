@@ -31,6 +31,9 @@ function percentase($val, $responden)
         </div>
         <div class="box-body">
 <!-- conternt here -->
+<a href="<?=base_url().'cetak/cetak_feedback_pengguna/'?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-print"></i> Cetak</a>
+<br/>
+<hr/>
 <table class="table table-striped">
 <thead>    
     <tr>
