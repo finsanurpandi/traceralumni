@@ -45,6 +45,8 @@ function check_akun($akun, $perusahaan){
 
 <p>Di bawah ini merupakan data pengguna lulusan dimana alumni bekerja.<p>
     <hr/>
+    <a href="<?=base_url('export/export_perusahaan_xls')?>" class="btn btn-primary btn-xs" target="_blank">export to xls</a>
+    <hr/>
         <div class="table-responsive">
             <table id="tbl-hello" class="table table-hover ui-corner-tr ui-helper-clearfix">
                 <thead>

@@ -121,7 +121,7 @@ class Login extends CI_Controller {
         if ($this->session->login_in == FALSE) {
             $this->load->view('login_prodi');
         } else {
-            redirect('prodi', 'refresh');
+            redirect('admin', 'refresh');
         }
 
         $rand = rand(1,5);
