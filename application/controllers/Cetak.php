@@ -135,6 +135,7 @@ class Cetak extends CI_Controller {
         $data['totalTracerAngkatan'] = $totalTracerAngkatan;
         $data['statusAlumni'] = $statusAlumni;
         $data['ratabulan'] = $this->getRataBulan();
+        $data['prodi'] = $prodi;
         $this->load->view('cetak/cetak_data_alumni', $data);
     }
 
@@ -186,6 +187,7 @@ class Cetak extends CI_Controller {
         $data['responden'] = $responden;
         $data['aspek'] = $aspek;
         $data['jumlah'] = $jumlah;
+        $data['prodi'] = $prodi;
 
         $this->load->view('cetak/cetak_feedback_pengguna', $data);
     }

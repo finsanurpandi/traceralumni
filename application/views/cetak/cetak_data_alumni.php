@@ -304,7 +304,7 @@
 <p style="margin-top:-10px;">Ketua Prodi <?=ucwords($prodi[0]['prodi'])?></p>
 <br/><br/><br/>
 <p>
-WIRATNA TRI N., IR., MT.
+<?=$prodi[0]['kaprodi']?>
 </p>
 </div>
                 

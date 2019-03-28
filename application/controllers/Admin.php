@@ -487,6 +487,7 @@ class Admin extends CI_Controller {
             if ($i == 0) { // mengisi record pertama pada array
                 $data[0]['npm'] = $value['npm'];
                 $data[0]['bln'] = $bln;
+                $data[0]['thn_akademik'] = $value['thn_akademik'];
             } else {
                 for ($n=0; $n < count($data); $n++) { 
                     if ($data[$n]['npm'] == $value['npm']) { // jika terdapat npm yang sama
@@ -502,6 +503,7 @@ class Admin extends CI_Controller {
                 } else {
                     $data[$arr]['npm'] = $value['npm'];
                     $data[$arr]['bln'] = $bln;
+                    $data[$arr]['thn_akademik'] = $value['thn_akademik'];
                 }
             }
             $i++;
@@ -512,13 +514,14 @@ class Admin extends CI_Controller {
         // print_r($data);
         // echo "</pre>";
 
-        for ($i=0; $i < count($data); $i++) { 
-            $total += $data[$i]['bln'];
-        }
+        // for ($i=0; $i < count($data); $i++) { 
+        //     $total += $data[$i]['bln'];
+        // }
 
-        $rata = $total/count($data);
+        // $rata = $total/count($data);
 
-        return round($rata, 2);
+        // return round($rata, 2);
+        return $data;
     }
 
     function penilaian_alumni()
@@ -545,6 +548,12 @@ class Admin extends CI_Controller {
             $fromYear = $this->input->post('dari');
             $untilYear = $this->input->post('sampai');
 
+            //fix bug between query
+            $str = explode('/', $fromYear);
+            $dari = (int)$str[0]-1;
+            $sampai = (int)$str[1]-1;
+            $fromYear = $dari.'/'.$sampai;
+
             $jmlalumni = $this->m_feedback->getJmlAlumni($this->session->kdprodi, $fromYear, $untilYear); 
             $totalAlumni = $this->m_feedback->getFilterDataAlumni('ace_data_alumni', $this->session->kdprodi, $fromYear, $untilYear);
             $totalTracer = $this->m_feedback->getFilterDataAlumni('v_tracer_alumni', $this->session->kdprodi, $fromYear, $untilYear);
@@ -553,7 +562,7 @@ class Admin extends CI_Controller {
             
             //show years
             $this->session->set_flashdata('filter', true);
-            $data['from'] = $fromYear;
+            $data['from'] = $this->input->post('dari');
             $data['until'] = $untilYear;
 
         } else {
@@ -568,12 +577,36 @@ class Admin extends CI_Controller {
            
         }
 
+        //get rata-rata bulan
+        $waktuTunggu = $this->getRataBulan();
+        $total = 0;
+        $rata = 0;
+        $blnWaktuTunggu = [];
+
+        for ($i=0; $i < count($waktuTunggu); $i++) { 
+            // $total += $waktuTunggu[$i]['bln'];
+
+            for ($j=0; $j < count($jmlalumni); $j++) { 
+                if ($waktuTunggu[$i]['thn_akademik'] == $jmlalumni[$j]['thn_akademik']) {
+                    @$jmlalumni[$j]['ngisi'] += 1;
+                    @$jmlalumni[$j]['bln'] += $waktuTunggu[$i]['bln'];
+                    $total += $waktuTunggu[$i]['bln'];
+                }
+            }
+        }
+
+        $rata = $total/count($waktuTunggu);
+        // print_r($jmlalumni);
+        // print(count($waktuTunggu));
+        //get rata-rata waktu tunggu per tahun akademik
+
+
         $data['jmlalumni'] = $jmlalumni;
         $data['totalAlumni'] = $totalAlumni;
         $data['totalTracer'] = $totalTracer;
         $data['totalTracerAngkatan'] = $totalTracerAngkatan;
         $data['statusAlumni'] = $statusAlumni;
-        $data['ratabulan'] = $this->getRataBulan();
+        $data['ratabulan'] = round($rata, 2);
         $this->load_view('fadmin/penilaian_alumni', $data);
     }
 

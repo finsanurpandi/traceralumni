@@ -32,11 +32,11 @@
 <form class="form-inline" method="post">
   <div class="form-group">
     <label for="exampleInputName2">dari</label>
-    <input type="text" name="dari" class="form-control" placeholder="2014/2015">
+    <input type="text" name="dari" class="form-control" placeholder="2014/2015" required>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail2">sampai</label>
-    <input type="text" name="sampai" class="form-control" placeholder="2017/2018">
+    <input type="text" name="sampai" class="form-control" placeholder="2017/2018" required>
   </div>
   <button type="submit" name="setYear" class="btn btn-default"><i class="fa fa-search"></i> filter</button>
 </form>
@@ -172,16 +172,16 @@ $jml += $value['jumlah'];
 <!-- END OF DATA ALUMNI MENGISI TRACER -->
 
 <!-- Data Status Alumni -->
-<div class="row">
-<div class="col-md-6 col-xs-12">
+<!-- <div class="row">
+<div class="col-md-6 col-xs-12"> -->
 
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Data Status Alumni</h3>
     </div>
     <div class="box-body">
-    <!-- <div class="row">
-    <div class="col-md-6"> -->
+    <div class="row">
+    <div class="col-md-6">
 
     <table class="table table-hover">
     <thead>
@@ -215,30 +215,80 @@ $jml += $value['jumlah'];
                 <?php } ?>
     </tbody>
     </table>
-    </div><!-- /.box-body -->
-</div><!-- /.box -->
+    </div> <!-- col-md-6 -->
 
-</div>
-<div class="col-md-6 col-xs-12">
+    <div class="col-md-6">
+        <canvas id="pieChart4"></canvas>
+    </div>
+    </div> <!-- row -->
+    </div><!-- /.box-body -->
+</div><!-- /.box info-->
+
+
+<!-- <div class="col-md-6 col-xs-12"> -->
 
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Rata-Rata Waktu Tunggu</h3>
     </div>
     <div class="box-body">
-    
+    <div class="row">
+    <div class="col-md-6">
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tahun Akademik</th>
+            <th>Rata-Rata Waktu Tunggu</th>
+        <tr>
+    </thead>
+    <tbody>
+<?php
+$no = 1;
+$jmlBulan = 0;
+$jmlNgisi = 0;
+$totalWaktuTunggu = 0;
+    foreach ($jmlalumni as $key => $value) {
+?>
+        <tr>
+            <td><?=$no++?></td>
+            <td><?=$value['thn_akademik']?></td>
+            <td><?=round(($value['bln']/$value['ngisi']),2)?> Bulan</td>
+        </tr>
+<?php 
+$jmlBulan += $value['bln'];
+$jmlNgisi += $value['ngisi'];
+    }
+    $totalWaktuTunggu = round(($jmlBulan/$jmlNgisi),2);
+?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" align="right"><strong>Rata-Rata</strong></td>
+            <td><?=$totalWaktuTunggu?> Bulan</td>
+        </tr>
+    <tfoot>
+    </table>
     <!-- hide this for a while -->
     <!-- <h1><?=$ratabulan?> Bulan</h1> -->
     <?php
     if ($this->session->kdprodi == '22201') {
         echo "<h1>2 Bulan</h1>";
     } elseif ($this->session->kdprodi == '26201') {
-        echo "<h1>unknown Bulan</h1>";
+        // echo "<h1>".$ratabulan." Bulan</h1>";
     } elseif ($this->session->kdprodi == '55201') {
-        echo "<h1>2.8 Bulan</h1>";
+        // echo "<h1>".$ratabulan." Bulan</h1>";
     }
     ?>
 
+    </div> <!-- col-md-6 -->
+    
+
+    <div class="col-md-6">
+        <!-- <canvas id="pieChart5"></canvas> -->
+        <canvas id="pieChart6"></canvas>
+    <div class="col-md-6">
+    </div> <!-- row -->
     </div><!-- /.box-body -->
 </div><!-- /.box -->
 
@@ -271,6 +321,10 @@ var jumlah = [];
 var warna = [];
 var thnAkademik = [];
 var jmlMhs = [];
+var statusAlumni = [];
+var waktuTunggu = [];
+var bgcolor = [];
+var lncolor = [];
 
 <?php foreach ($totalTracerAngkatan as $key => $value) { ?>
     label.push("<?=$value['angkatan']?>");
@@ -280,6 +334,14 @@ var jmlMhs = [];
 <?php foreach ($jmlalumni as $key => $value) { ?>
     thnAkademik.push("<?=$value['thn_akademik']?>");
     jmlMhs.push("<?=$value['jumlah']?>");
+    waktuTunggu.push("<?=round(($value['bln']/$value['ngisi']),2) ?>");
+    bgcolor.push('rgba(54, 162, 235, 1)');
+    lncolor.push('rgba(54, 162, 235, 0.8)');
+<?php } ?>
+
+<?php foreach ($statusAlumni as $key => $value) { ?>
+    // statusAlumni.push("<?=round(($value['jumlah']/count($totalTracer))*100,2)?>");
+    statusAlumni.push("<?=$value['jumlah']?>");
 <?php } ?>
 
 var dynamicColors = function(){
@@ -296,6 +358,9 @@ for (var i in jumlah) {
 var ctx1 = document.getElementById("pieChart1");
 var ctx2 = document.getElementById("pieChart2");
 var ctx3 = document.getElementById("pieChart3");
+var ctx4 = document.getElementById("pieChart4");
+var ctx5 = document.getElementById("pieChart5");
+var ctx6 = document.getElementById("pieChart6");
 
 var pichart1 = new Chart(ctx1, {
     type: 'pie',
@@ -329,7 +394,7 @@ var pichart3 = new Chart(ctx3, {
         labels: thnAkademik,
         datasets: [{
             data: jmlMhs,
-            label: 'Tahun Akademik',
+            label: 'Jumlah Lulusan',
             borderColor: ['rgba(54, 162, 235, 1)'],
             pointBackgroundColor: 'rgb(255, 99, 132)',
             pointBorderColor: 'rgb(255, 99, 132)'
@@ -337,4 +402,57 @@ var pichart3 = new Chart(ctx3, {
     }
 })
 
+var pichart4 = new Chart(ctx4, {
+    type: 'pie',
+    data: {
+        labels: ["Bekerja", "Wirausaha", "Belum Bekerja", "Tidak Bekerja/Berkeluarga"],
+        datasets: [{
+            data: statusAlumni,
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(255, 99, 132, 0.8)'
+            ]
+        }]
+    }
+});
+
+// var pichart5 = new Chart(ctx5, {
+//     type: 'bar',
+//     data: {
+//         labels: ['2013-2014', '2014-2015', '2015-2016', '2016-2017', '2017-2018'],
+//         datasets: [{
+//             data: [3.1, 2.8, 3, 2.6, 2.5],
+//             label: 'Tahun Akademik',
+//             borderColor: [
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(54, 162, 235, 1)'
+//                 ],
+//             backgroundColor: [
+//                 'rgba(54, 162, 235, 0.8)',
+//                 'rgba(54, 162, 235, 0.8)',
+//                 'rgba(54, 162, 235, 0.8)',
+//                 'rgba(54, 162, 235, 0.8)',
+//                 'rgba(54, 162, 235, 0.8)'
+//                 ]
+//         }]
+//     }
+// });
+
+var pichart6 = new Chart(ctx6, {
+    type: 'bar',
+    data: {
+        labels: thnAkademik,
+        datasets: [{
+            data: waktuTunggu,
+            label: 'Rata-rata Bulan',
+            borderColor: lncolor,
+            backgroundColor: bgcolor
+        }]
+    }
+});
 </script>
