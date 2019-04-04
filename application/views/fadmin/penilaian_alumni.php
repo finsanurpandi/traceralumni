@@ -234,6 +234,61 @@ $jml += $value['jumlah'];
     <div class="box-body">
     <div class="row">
     <div class="col-md-6">
+
+    <?php
+    if ($this->session->kdprodi == '26201') {
+        echo "<h1>1.5 Bulan</h1>";
+    } else {
+    if ($config['value'] == '1') {
+    ?>
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tahun Akademik</th>
+            <th>Rata-Rata Waktu Tunggu</th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>2013-2014</td>
+            <td>3.1 Bulan</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2014-2015</td>
+            <td>2.8 Bulan</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2015-2016</td>
+            <td>3 Bulan</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>2016-2017</td>
+            <td>2.6 Bulan</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>2017-2018</td>
+            <td>2.5 Bulan</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" align="right"><strong>Rata-Rata</strong></td>
+            <td>2.8 Bulan</td>
+        </tr>
+    </tfoot>
+    </table>
+
+    <?php
+    } else {
+    ?>
+
     <table class="table table-hover">
     <thead>
         <tr>
@@ -259,6 +314,7 @@ $totalWaktuTunggu = 0;
 $jmlBulan += $value['bln'];
 $jmlNgisi += $value['ngisi'];
     }
+}
     $totalWaktuTunggu = round(($jmlBulan/$jmlNgisi),2);
 ?>
     </tbody>
@@ -267,8 +323,11 @@ $jmlNgisi += $value['ngisi'];
             <td colspan="2" align="right"><strong>Rata-Rata</strong></td>
             <td><?=$totalWaktuTunggu?> Bulan</td>
         </tr>
-    <tfoot>
+    </tfoot>
     </table>
+    
+    <?php } ?>
+
     <!-- hide this for a while -->
     <!-- <h1><?=$ratabulan?> Bulan</h1> -->
     <?php
@@ -285,8 +344,16 @@ $jmlNgisi += $value['ngisi'];
     
 
     <div class="col-md-6">
-        <!-- <canvas id="pieChart5"></canvas> -->
+    <?php
+        if ($this->session->kdprodi !== '26201') {
+        if ($config['value'] == '1') {
+    ?>
+        <canvas id="pieChart5"></canvas>
+    <?php } else { ?>
+
         <canvas id="pieChart6"></canvas>
+    
+    <?php } }?>
     <div class="col-md-6">
     </div> <!-- row -->
     </div><!-- /.box-body -->
@@ -325,6 +392,7 @@ var statusAlumni = [];
 var waktuTunggu = [];
 var bgcolor = [];
 var lncolor = [];
+var setupWaktuTunggu = <?=$config['value']?>;
 
 <?php foreach ($totalTracerAngkatan as $key => $value) { ?>
     label.push("<?=$value['angkatan']?>");
@@ -418,30 +486,34 @@ var pichart4 = new Chart(ctx4, {
     }
 });
 
-// var pichart5 = new Chart(ctx5, {
-//     type: 'bar',
-//     data: {
-//         labels: ['2013-2014', '2014-2015', '2015-2016', '2016-2017', '2017-2018'],
-//         datasets: [{
-//             data: [3.1, 2.8, 3, 2.6, 2.5],
-//             label: 'Tahun Akademik',
-//             borderColor: [
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(54, 162, 235, 1)'
-//                 ],
-//             backgroundColor: [
-//                 'rgba(54, 162, 235, 0.8)',
-//                 'rgba(54, 162, 235, 0.8)',
-//                 'rgba(54, 162, 235, 0.8)',
-//                 'rgba(54, 162, 235, 0.8)',
-//                 'rgba(54, 162, 235, 0.8)'
-//                 ]
-//         }]
-//     }
-// });
+if (setupWaktuTunggu == 1) {
+
+var pichart5 = new Chart(ctx5, {
+    type: 'bar',
+    data: {
+        labels: ['2013-2014', '2014-2015', '2015-2016', '2016-2017', '2017-2018'],
+        datasets: [{
+            data: [3.1, 2.8, 3, 2.6, 2.5],
+            label: 'Tahun Akademik',
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)'
+                ],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(54, 162, 235, 0.8)'
+                ]
+        }]
+    }
+});
+
+} else {
 
 var pichart6 = new Chart(ctx6, {
     type: 'bar',
@@ -455,4 +527,6 @@ var pichart6 = new Chart(ctx6, {
         }]
     }
 });
+
+}
 </script>

@@ -175,8 +175,36 @@ class Tracerstudy extends CI_Controller {
         $status = $this->m_feedback->getAllData('ace_status')->result_array();
         // $karir = $this->m_feedback->getDetailKarir($user[0]['npm']);
         $karir = $this->m_feedback->getAllData('ace_detail_alumni', array('npm' => $user[0]['npm']), array('tahun_bekerja' => 'DESC'))->result_array();
+        //$karir = $this->m_feedback->getAllData('ace_detail_alumni', array('npm' => $user[0]['npm']))->result_array();
+
+        // Pengecekan karir terakhir
+        $karirSekarang = array();
+        $karirSekarang[0]['posisi'] = 'unknown';
+        $karirSekarang[0]['nama_perusahaan'] = 'unknown';
+        $karirSekarang[0]['bulan'] = 0;
+        $karirSekarang[0]['tahun'] = '0000';
+
+        foreach ($karir as $key => $value) {
+            if ($value['bulan_selesai'] == 0) {
+                if ($value['tahun_bekerja'] > $karirSekarang[0]['tahun']) {
+                    $karirSekarang[0]['tahun'] = $value['tahun_bekerja'];
+                    $karirSekarang[0]['posisi'] = $value['posisi'];
+                    $karirSekarang[0]['nama_perusahaan'] = $value['nama_perusahaan'];
+                    $karirSekarang[0]['bulan'] = $value['bulan_bekerja'];
+                } elseif ($value['tahun_bekerja'] == $karirSekarang[0]['tahun']) {
+                    if ($value['bulan_bekerja'] >= $karirSekarang[0]['bulan']) {
+                        $karirSekarang[0]['tahun'] = $value['tahun_bekerja'];
+                        $karirSekarang[0]['posisi'] = $value['posisi'];
+                        $karirSekarang[0]['nama_perusahaan'] = $value['nama_perusahaan'];
+                        $karirSekarang[0]['bulan'] = $value['bulan_bekerja'];
+                    }
+                }
+            }
+        }
+
         $data['status'] = $status;
         $data['karir'] = $karir;
+        $data['karirSekarang'] = $karirSekarang;
         $data['perusahaan'] = $perusahaan;
 
         $this->load_view('falumni/profil', $data);
@@ -304,9 +332,27 @@ class Tracerstudy extends CI_Controller {
 				$this->m_feedback->updateData('ace_alumni', $data, array('npm' => $this->session->npm));
 
 				redirect($this->uri->uri_string());
-			}
-
+            }
+            
         }
+
+        // edit status
+        $editStt = $this->input->post('sttSkarang');
+
+
+            if (isset($editStt)) {
+                
+                echo $this->input->post('sttSkarang');
+                $data = array(
+                    'status' => $this->input->post('sttSkarang')
+                );
+
+                $where = array('npm' => $this->session->npm);
+
+                $this->m_feedback->updateData('ace_alumni', $data, $where);
+                redirect($this->uri->uri_string());
+                
+            }
 
         // ganti password
         $gantipass = $this->input->post('submit-pass');
@@ -335,6 +381,18 @@ class Tracerstudy extends CI_Controller {
             }
         }
 
+    }
+
+    function editStatus()
+    {
+        $data = array(
+            'status' => $this->input->post('sttSkarang')
+        );
+
+        $where = array('npm' => $this->session->npm);
+
+        $this->m_feedback->updateData('ace_alumni', $data, $where);
+        redirect(base_url('tracerstudy/profil'));
     }
 
 

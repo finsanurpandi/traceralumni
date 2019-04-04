@@ -3,6 +3,7 @@
 class Admin extends CI_Controller {
 
     public $user;
+    public $setup;
 
     public function __construct()
     {
@@ -12,7 +13,7 @@ class Admin extends CI_Controller {
 		$this->check_login();
         date_default_timezone_set("Asia/Bangkok");
         $this->user = $this->m_feedback->getAllData('ace_login', array('username' => $this->session->user))->result_array();
-        
+        $this->setup = $this->m_feedback->getAllData('ace_configuration')->result_array();
     }
 
     function load_view($url, $data = null)
@@ -447,7 +448,7 @@ class Admin extends CI_Controller {
 
     function getRataBulan()
     {
-        $alumni = $this->m_feedback->getAllData('v_detail_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
+        $alumni = $this->m_feedback->getAllData('v_detail_alumni', array('kd_prodi' => $this->session->kdprodi, 'status' => '1'))->result_array();
         $data = array();
         $i = 0;
         $same = 0;
@@ -530,7 +531,6 @@ class Admin extends CI_Controller {
         $prodi = $this->m_feedback->getAllData('ace_prodi', array('kd_prodi' => $this->session->kdprodi))->result_array();
         $data['prodi'] = $prodi;
 
-
         // get all data alumni
         // $jmlalumni = $this->m_feedback->getJmlAlumni($this->session->kdprodi); // get jumlah alumni
         // $totalAlumni = $this->m_feedback->getAllData('ace_data_alumni', array('kd_prodi' => $this->session->kdprodi))->result_array();
@@ -562,8 +562,8 @@ class Admin extends CI_Controller {
             
             //show years
             $this->session->set_flashdata('filter', true);
-            $data['from'] = $this->input->post('dari');
-            $data['until'] = $untilYear;
+            $data['from'] = str_replace('/','-',$this->input->post('dari'));
+            $data['until'] = str_replace('/','-',$untilYear);
 
         } else {
             $jmlalumni = $this->m_feedback->getJmlAlumni($this->session->kdprodi); 
@@ -572,8 +572,8 @@ class Admin extends CI_Controller {
             $totalTracerAngkatan = $this->m_feedback->getJumlahTracerAngkatan($this->session->kdprodi);
             $statusAlumni = $this->m_feedback->getStatusAlumni($this->session->kdprodi);
 
-            $data['from'] = $fromYear;
-            $data['until'] = $untilYear;
+            $data['from'] = str_replace('/','-',$fromYear);
+            $data['until'] = str_replace('/','-',$untilYear);
            
         }
 
@@ -607,6 +607,7 @@ class Admin extends CI_Controller {
         $data['totalTracerAngkatan'] = $totalTracerAngkatan;
         $data['statusAlumni'] = $statusAlumni;
         $data['ratabulan'] = round($rata, 2);
+        $data['config'] = $this->setup[0];
         $this->load_view('fadmin/penilaian_alumni', $data);
     }
 
@@ -688,9 +689,9 @@ class Admin extends CI_Controller {
         }
     }
 
-    function cetak()
+    function setup_waktu_tunggu($value)
     {
-
+        $this->m_feedback->updateData('ace_configuration', array('value' => $value), array('id' => 1));
     }
 
 }

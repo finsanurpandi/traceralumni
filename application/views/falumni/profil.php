@@ -35,7 +35,7 @@
       case '11':
         echo "Nov";
         break;
-      case '2':
+      case '12':
         echo "Dec";
         break;
     }
@@ -72,9 +72,10 @@
   <!-- <p class="text-center"><?=$user['npm']?></p> -->
   <?php
   if (count($karir) == '0') {
-    echo "<p class='text-center'>Belum menambahkan karir</p>";
+    echo "<p class='text-center'>Silahkan tambahkan karir</p>";
   } else {
-    echo "<p class='text-center'>".$karir[0]['posisi']." at ".$karir[0]['nama_perusahaan']."</p>";
+    // echo "<p class='text-center'>".$karir[0]['posisi']." <br/>at<br/> ".$karir[0]['nama_perusahaan']."</p>";
+    echo "<p class='text-center'>".$karirSekarang[0]['posisi']." <br/>at<br/> ".$karirSekarang[0]['nama_perusahaan']."</p>";
   }
   ?>
   <br/>
@@ -101,7 +102,46 @@
   </p>
   </div>
   <hr/>
+  
+  <div class="text-center">
+  <strong style="font-size:18px;">Status anda saat ini</strong>
+  <form method="post">
+  <select class="form-control" id="status" name="sttSkarang" onchange="this.form.submit()">
+    <?php
+      if ($user['status'] == 1) {
+    ?>
+      <option value="1" selected="true">Bekerja</option>
+      <option value="2">Wirausaha</option>
+      <option value="3">Belum Bekerja</option>
+      <option value="4">Tidak Bekerja/Berkeluarga</option>
+    <?php
+      } elseif ($user['status'] == 2) {
+    ?>
+      <option value="1">Bekerja</option>
+      <option value="2" selected="true">Wirausaha</option>
+      <option value="3">Belum Bekerja</option>
+      <option value="4">Tidak Bekerja/Berkeluarga</option>
+    <?php
+      } elseif ($user['status'] == 3) {
+    ?>
+      <option value="1">Bekerja</option>
+      <option value="2">Wirausaha</option>
+      <option value="3" selected="true">Belum Bekerja</option>
+      <option value="4">Tidak Bekerja/Berkeluarga</option>
+    <?php
+      } elseif ($user['status'] == 4) {
+    ?>
+      <option value="1">Bekerja</option>
+      <option value="2">Wirausaha</option>
+      <option value="3">Belum Bekerja</option>
+      <option value="4" selected="true">Tidak Bekerja/Berkeluarga</option>
+      <?php } ?>
+    </select>
+    <input type="hidden" name="changeStatus" value="update"/>
+    <input type="hidden" name="npm" value="<?=$user['npm']?>"/>
+  </form>
 
+  </div>
 </div>
 
 <div class="col-md-9"> <!--COL MD 9-->

@@ -2,11 +2,13 @@
 
 class Cetak extends CI_Controller {
 
+    public $setup;
+
     function __construct()
     {
         parent::__construct();
         $this->load->model('m_feedback');
-        
+        $this->setup = $this->m_feedback->getAllData('ace_configuration')->result_array();
     }
 
     public function index()
@@ -56,6 +58,7 @@ class Cetak extends CI_Controller {
             if ($i == 0) { // mengisi record pertama pada array
                 $data[0]['npm'] = $value['npm'];
                 $data[0]['bln'] = $bln;
+                $data[0]['thn_akademik'] = $value['thn_akademik'];
             } else {
                 for ($n=0; $n < count($data); $n++) { 
                     if ($data[$n]['npm'] == $value['npm']) { // jika terdapat npm yang sama
@@ -71,6 +74,7 @@ class Cetak extends CI_Controller {
                 } else {
                     $data[$arr]['npm'] = $value['npm'];
                     $data[$arr]['bln'] = $bln;
+                    $data[$arr]['thn_akademik'] = $value['thn_akademik'];
                 }
             }
             $i++;
@@ -81,13 +85,14 @@ class Cetak extends CI_Controller {
         // print_r($data);
         // echo "</pre>";
 
-        for ($i=0; $i < count($data); $i++) { 
-            $total += $data[$i]['bln'];
-        }
+        // for ($i=0; $i < count($data); $i++) { 
+        //     $total += $data[$i]['bln'];
+        // }
 
-        $rata = $total/count($data);
+        // $rata = $total/count($data);
 
-        return round($rata, 2);
+        // return round($rata, 2);
+        return $data;
     }
 
     function cetak_data_alumni($fromYear, $untilYear)
@@ -128,14 +133,35 @@ class Cetak extends CI_Controller {
             $jml += $value['jumlah'];
         }
 
+        //get rata-rata bulan
+        $waktuTunggu = $this->getRataBulan();
+        $total = 0;
+        $rata = 0;
+        $blnWaktuTunggu = [];
+
+        for ($i=0; $i < count($waktuTunggu); $i++) { 
+            // $total += $waktuTunggu[$i]['bln'];
+
+            for ($j=0; $j < count($jmlalumni); $j++) { 
+                if ($waktuTunggu[$i]['thn_akademik'] == $jmlalumni[$j]['thn_akademik']) {
+                    @$jmlalumni[$j]['ngisi'] += 1;
+                    @$jmlalumni[$j]['bln'] += $waktuTunggu[$i]['bln'];
+                    $total += $waktuTunggu[$i]['bln'];
+                }
+            }
+        }
+
+        $rata = $total/count($waktuTunggu);
+
         $data['jml'] = $jml;
         $data['jmlalumni'] = $jmlalumni;
         $data['totalAlumni'] = $totalAlumni;
         $data['totalTracer'] = $totalTracer;
         $data['totalTracerAngkatan'] = $totalTracerAngkatan;
         $data['statusAlumni'] = $statusAlumni;
-        $data['ratabulan'] = $this->getRataBulan();
+        $data['ratabulan'] = round($rata, 2);
         $data['prodi'] = $prodi;
+        $data['config'] = $this->setup[0];
         $this->load->view('cetak/cetak_data_alumni', $data);
     }
 

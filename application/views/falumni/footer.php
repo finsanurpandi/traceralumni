@@ -2,7 +2,7 @@
   <div class="pull-right hidden-xs">
     <b>Version</b> 1.0.0
   </div>
-  <strong>Copyright &copy; 2018 <a href="https://ft.unsur.ac.id">Fakultas Teknik</a>.</strong> All rights
+  <strong>Copyright &copy; 2017-<?=date('Y')?> <a href="https://ft.unsur.ac.id">Fakultas Teknik</a>.</strong> All rights
   reserved.
 </footer>
 
@@ -77,6 +77,8 @@ $(function(){
   });
 
   //$( "#addPerusahaan" ).autocomplete( "option", "appendTo", ".eventInsForm" );
+
+  
   
 });
 

@@ -296,6 +296,99 @@
                 </div>
             </div>
 
+            <div class="row">
+            <div class="col-md-12">
+                <div class="text-center"><h4>Rata-Rata Waktu Tunggu</h4></div>
+                <?php
+    if ($this->session->kdprodi == '26201') {
+        echo "<p class='text-center'>Rata-rata waktu tunggu lulusan mendapatkan pekerjaan adalah <strong>1.5 Bulan</strong></p>";
+    } else {
+    if ($config['value'] == '1') {
+    ?>
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tahun Akademik</th>
+            <th>Rata-Rata Waktu Tunggu</th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>2013-2014</td>
+            <td>3.1 Bulan</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2014-2015</td>
+            <td>2.8 Bulan</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2015-2016</td>
+            <td>3 Bulan</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>2016-2017</td>
+            <td>2.6 Bulan</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>2017-2018</td>
+            <td>2.5 Bulan</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" align="right"><strong>Rata-Rata</strong></td>
+            <td>2.8 Bulan</td>
+        </tr>
+    </tfoot>
+    </table>
+
+    <?php
+    } else {
+    ?>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tahun Akademik</th>
+                            <th>Rata-Rata Waktu Tunggu</th>
+                        <tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $jmlBulan = 0;
+                    $jmlNgisi = 0;
+                    $totalWaktuTunggu = 0;
+                        foreach ($jmlalumni as $key => $value) {
+                    ?>
+                        <tr>
+                            <td><?=$value['thn_akademik']?></td>
+                            <td><?=round(($value['bln']/$value['ngisi']),2)?> Bulan</td>
+                        </tr>
+                        <?php 
+                        $jmlBulan += $value['bln'];
+                        $jmlNgisi += $value['ngisi'];
+                            }
+                            $totalWaktuTunggu = round(($jmlBulan/$jmlNgisi),2);
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="1" align="right"><strong>Rata-Rata</strong></td>
+                            <td><?=$totalWaktuTunggu?> Bulan</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <?php } }?>
+                </div>
+            </div>
+
             <hr/>
 <br/><br/><br/>
 
